@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ETTT-Report</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <style type="text/css">
+        .show {
+            display: ;
+        }
+        .hide {
+            display: none;
+        }
+        .ignore {
+            background: #AEB6BF;
+        }
+
+    </style>
+    <script type="text/javascript">
+        function toggleRowSummary(buttonId, id) {
+            var button = document.getElementById(buttonId);
+            var isShowOthers = (' ' + button.className + ' ').indexOf(' showOthers ') > -1;
+            var tbody = document.getElementById(id);
+            var trs       = tbody.rows;
+            var startRow = 0;
+            for (var i=startRow; i < trs.length; i++) {
+                var tr = trs[i];
+                var isNoExistsNgRow = (' ' + tr.className + ' ').indexOf(' noExistsNgRow ') > -1;
+                if (isNoExistsNgRow) {
+                    if (isShowOthers) {
+                        tr.className = "noExistsNgRow hide";
+                    } else {
+                        tr.className = "noExistsNgRow show";
+                    }
+                } else {
+                    var status = tr.cells[1].innerText;
+                    if (status == 'OK') {
+                        if (isShowOthers) {
+                            tr.className = "show";
+                        } else {
+                            tr.className = "hide";
+                        }
+                    }
+                }
+            }
+            if (isShowOthers) {
+                button.innerText = 'Show Hide Only';
+                button.className = button.className.replace(/showOthers/g,'');
+            } else {
+                button.innerText = 'Show Others';
+                button.className = button.className + "showOthers";
+            }
+        }
+        function toggleRowDetail(buttonId, id) {
+            var button = document.getElementById(buttonId);
+            var isShowOthers = (' ' + button.className + ' ').indexOf(' showOthers ') > -1;
+            var tbody = document.getElementById(id);
+            var trs       = tbody.rows;
+            var startRow = 0;
+            for (var i=startRow; i < trs.length; i++) {
+                var tr = trs[i];
+                var isNoExistsNgColumn = (' ' + tr.className + ' ').indexOf(' noExistsNgColumn ') > -1;
+                if (isNoExistsNgColumn) {
+                    if (isShowOthers) {
+                        tr.className = "noExistsNgColumn hide";
+                    } else {
+                        tr.className = "noExistsNgColumn show";
+                    }
+                } else {
+                    var status = tr.cells[3].innerText;
+                    var ignore = tr.cells[4].innerText;
+                    if (status == 'OK' || ignore == 'Yes' ) {
+                        if (isShowOthers) {
+                            tr.className = "show";
+                        } else {
+                            tr.className = "hide";
+                        }
+                    }
+                }
+            }
+            if (isShowOthers) {
+                button.innerText = 'Show Hide Only';
+                button.className = button.className.replace(/showOthers/g,'');
+            } else {
+                button.innerText = 'Show Others';
+                button.className = button.className + "showOthers";
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <span class="navbar-brand col-md-11">ETTT-Reports</span>
+    <span style="color:#eee">Version:1.0.0</span>
+</nav>
+
+<main role="main" class="container">
+
+    <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="#" th:href="'../../report.html'">All</a>
+        <a class="breadcrumb-item" href="#" th:href="'../scenario_report.html'">Scenario</a>
+        <a class="breadcrumb-item" href="#">AssertRdbData&nbsp;Reports</a>
+    </nav>
+
+    <section class="row">
+        <div class="col-md-12">
+            <h2>Assert&nbsp;Target&nbsp;Tables</h2>
+            <table class="table table-sm table-bordered">
+                <thead class="bg-dark" style="color:white">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">ColumnNum</th>
+                    <th scope="col">ColumnIndex</th>
+                    <th scope="col">RecordNum</th>
+                    <th scope="col">ColumnDataType</th>
+                    <th scope="col">Row</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="table,stat : ${tables}">
+                    <td>
+                        <a th:href="${#strings.concat('#', table.name)}" th:text="${table.name}">TableName</a>
+                    </td>
+                    <td th:text="${table.columnNumAssert}"
+                        th:class="${table.columnNumAssert.getCssClass()}">OK
+                    </td>
+                    <td th:text="${table.columnIndexAssert}"
+                        th:class="${table.columnIndexAssert.getCssClass()}">OK
+                    </td>
+                    <td th:text="${table.recordNumAssert}"
+                        th:class="${table.recordNumAssert.getCssClass()}">OK
+                    </td>
+                    <td th:text="${table.columnDataTypeAssert}"
+                        th:class="${table.columnDataTypeAssert.getCssClass()}">OK
+                    </td>
+                    <td th:text="${table.rowAssert}"
+                        th:class="${table.rowAssert.getCssClass()}">OK
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <th:block th:each="table,stat : ${tables}">
+        <section class="row">
+            <div class="col-md-12">
+                <h2 th:text="${table.name}" th:id="${table.name}">Table&nbsp;Name</h2>
+                <h6>Rows&nbsp;:&nbsp;
+                Total&nbsp;:&nbsp;<span th:text="${table.rows.size()}">1</span>
+                &nbsp;&nbsp;OK&nbsp;:&nbsp;<span th:text="${table.okRowCount}">1</span>
+                &nbsp;&nbsp;NG&nbsp;:&nbsp;<span th:text="${table.ngRowCount}">1</span>&nbsp;&nbsp;
+                <button class="btn btn-sm showOthers"
+                        th:id="${#strings.concat(table.name, '-toggleButton')}"
+                        th:attr="onclick='toggleRowSummary(\'' +${#strings.concat(table.name, '-toggleButton')} + '\',\'' + ${#strings.concat(table.name, '-tbody')} + '\')'">
+                    Show&nbsp;Others
+                </button>
+                </h6>
+                <th:block th:each="row,rowStat : ${table.rows}">
+                    <table class="table table-sm table-bordered">
+                        <thead class="bg-dark" style="color:white">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody th:id="${#strings.concat(table.name, '-tbody')}">
+                        <th:block th:each="row,rowStat : ${table.rows}">
+                            <th:block th:if="${row.rowAssert.name == 'OK'}">
+                                <tr th:class="hide">
+                                    <td>
+                                        <a th:href="${#strings.concat('#', table.name, '-', rowStat.count)}"
+                                           th:text="${#strings.concat('#', rowStat.count)}">#1</a>
+                                    </td>
+                                    <td th:text="${row.rowAssert}" th:class="${row.rowAssert.getCssClass()}">OK</td>
+                                </tr>
+                            </th:block>
+                            <th:block th:if="${row.rowAssert.name != 'OK'}">
+                                <tr th:class="show">
+                                    <td>
+                                        <a th:href="${#strings.concat('#', table.name, '-', rowStat.count)}"
+                                           th:text="${#strings.concat('#', rowStat.count)}">#1</a>
+                                    </td>
+                                    <td th:text="${row.rowAssert}" th:class="${row.rowAssert.getCssClass()}">OK</td>
+                                </tr>
+                            </th:block>
+                        </th:block>
+                        <th:block th:if="${table.ngRowCount == 0}">
+                            <tr class="noExistsNgRow">
+                                <td colspan="2">No Exists NG Row.</td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </th:block>
+
+                <th:block th:each="row,rowStat : ${table.rows}">
+                    <h4 style="float:left;margin-right:20px;" th:text="${#strings.concat('#', rowStat.count)}"
+                        th:id="${#strings.concat(table.name, '-', rowStat.count)}">#1</h4>
+                    <button class="btn btn-sm showOthers"
+                            th:id="${#strings.concat(table.name, '-', rowStat.count, '-toggleButton')}"
+                            th:attr="onclick='toggleRowDetail(\'' +${#strings.concat(table.name, '-', rowStat.count, '-toggleButton')} + '\',\'' + ${#strings.concat(table.name, '-', rowStat.count, '-tbody')} + '\')'">
+                        Show&nbsp;Others
+                    </button>
+                    <table class="table table-sm table-bordered">
+                        <thead class="bg-dark" style="color:white">
+                        <tr>
+                            <th scope="col">Column</th>
+                            <th scope="col">Expected</th>
+                            <th scope="col">Actual</th>
+                            <th scope="col">Result</th>
+                            <th scope="col">Ignore</th>
+                        </tr>
+                        </thead>
+                        <tbody th:id="${#strings.concat(table.name, '-', rowStat.count, '-tbody')}">
+                        <th:block th:each="column,columnStat : ${row.columns}">
+                            <th:block th:if="${!column.ignore && column.status.name == 'OK'}">
+                                <tr th:class="hide">
+                                    <td th:text="${column.name}">Column&nbsp;Name</td>
+                                    <td th:text="${column.expected}">Expected&nbsp;Value</td>
+                                    <td th:text="${column.actual}">Actual&nbsp;Value</td>
+                                    <td th:text="${column.status}"
+                                        th:class="${column.status.getCssClass()}">OK
+                                    </td>
+                                    <td>-</td>
+                                </tr>
+                            </th:block>
+                            <th:block th:if="${!column.ignore && column.status.name == 'NG'}">
+                                <tr th:class="show">
+                                    <td th:text="${column.name}">Column&nbsp;Name</td>
+                                    <td th:text="${column.expected}">Expected&nbsp;Value</td>
+                                    <td th:text="${column.actual}">Actual&nbsp;Value</td>
+                                    <td th:text="${column.status}"
+                                        th:class="${column.status.getCssClass()}">OK
+                                    </td>
+                                    <td>-</td>
+                                </tr>
+                            </th:block>
+                            <th:block th:if="${column.ignore}">
+                                <tr th:class="hide">
+                                    <td class="ignore" th:text="${column.name}">Column&nbsp;Name</td>
+                                    <td class="ignore" th:text="${column.expected}">Expected&nbsp;Value</td>
+                                    <td class="ignore" th:text="${column.actual}">Actual&nbsp;Value</td>
+                                    <td class="ignore" th:text="${column.status}">OK</td>
+                                    <td class="ignore">Yes</td>
+                                </tr>
+                            </th:block>
+                        </th:block>
+                        <th:block th:if="${row.ngColumnCount == 0}">
+                            <tr class="noExistsNgColumn">
+                                <td colspan="5">No Exists NG Column.</td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </th:block>
+            </div>
+        </section>
+    </th:block>
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"
+        integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+</body>
+</html>

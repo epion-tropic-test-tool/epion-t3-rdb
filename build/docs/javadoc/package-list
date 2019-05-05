@@ -1,9 +1,0 @@
-com.epion_t3.rdb.bean
-com.epion_t3.rdb.command.model
-com.epion_t3.rdb.command.reporter
-com.epion_t3.rdb.command.runner
-com.epion_t3.rdb.configuration.model
-com.epion_t3.rdb.message
-com.epion_t3.rdb.type
-com.epion_t3.rdb.util
-com.epion_t3.rdb.writer

@@ -170,43 +170,41 @@
                     Show&nbsp;Others
                 </button>
                 </h6>
-                <th:block th:each="row,rowStat : ${table.rows}">
-                    <table class="table table-sm table-bordered">
-                        <thead class="bg-dark" style="color:white">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                        </thead>
-                        <tbody th:id="${#strings.concat(table.name, '-tbody')}">
-                        <th:block th:each="row,rowStat : ${table.rows}">
-                            <th:block th:if="${row.rowAssert.name == 'OK'}">
-                                <tr th:class="hide">
-                                    <td>
-                                        <a th:href="${#strings.concat('#', table.name, '-', rowStat.count)}"
-                                           th:text="${#strings.concat('#', rowStat.count)}">#1</a>
-                                    </td>
-                                    <td th:text="${row.rowAssert}" th:class="${row.rowAssert.getCssClass()}">OK</td>
-                                </tr>
-                            </th:block>
-                            <th:block th:if="${row.rowAssert.name != 'OK'}">
-                                <tr th:class="show">
-                                    <td>
-                                        <a th:href="${#strings.concat('#', table.name, '-', rowStat.count)}"
-                                           th:text="${#strings.concat('#', rowStat.count)}">#1</a>
-                                    </td>
-                                    <td th:text="${row.rowAssert}" th:class="${row.rowAssert.getCssClass()}">OK</td>
-                                </tr>
-                            </th:block>
-                        </th:block>
-                        <th:block th:if="${table.ngRowCount == 0}">
-                            <tr class="noExistsNgRow">
-                                <td colspan="2">No Exists NG Row.</td>
+                <table class="table table-sm table-bordered">
+                    <thead class="bg-dark" style="color:white">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody th:id="${#strings.concat(table.name, '-tbody')}">
+                    <th:block th:each="row,rowStat : ${table.rows}">
+                        <th:block th:if="${row.rowAssert.name == 'OK'}">
+                            <tr th:class="hide">
+                                <td>
+                                    <a th:href="${#strings.concat('#', table.name, '-', rowStat.count)}"
+                                       th:text="${#strings.concat('#', rowStat.count)}">#1</a>
+                                </td>
+                                <td th:text="${row.rowAssert}" th:class="${row.rowAssert.getCssClass()}">OK</td>
                             </tr>
                         </th:block>
-                        </tbody>
-                    </table>
-                </th:block>
+                        <th:block th:if="${row.rowAssert.name != 'OK'}">
+                            <tr th:class="show">
+                                <td>
+                                    <a th:href="${#strings.concat('#', table.name, '-', rowStat.count)}"
+                                       th:text="${#strings.concat('#', rowStat.count)}">#1</a>
+                                </td>
+                                <td th:text="${row.rowAssert}" th:class="${row.rowAssert.getCssClass()}">OK</td>
+                            </tr>
+                        </th:block>
+                    </th:block>
+                    <th:block th:if="${table.ngRowCount == 0}">
+                        <tr class="noExistsNgRow">
+                            <td colspan="2">No Exists NG Row.</td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
 
                 <th:block th:each="row,rowStat : ${table.rows}">
                     <h4 style="float:left;margin-right:20px;" th:text="${#strings.concat('#', rowStat.count)}"

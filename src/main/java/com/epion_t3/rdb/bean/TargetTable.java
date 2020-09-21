@@ -1,3 +1,4 @@
+/* Copyright (c) 2017-2020 Nozomu Takashima. */
 package com.epion_t3.rdb.bean;
 
 import lombok.Getter;
@@ -14,6 +15,5 @@ public class TargetTable implements Serializable {
     private String table;
 
     private String query;
-
 
 }

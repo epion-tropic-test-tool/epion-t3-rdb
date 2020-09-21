@@ -1,3 +1,4 @@
+/* Copyright (c) 2017-2020 Nozomu Takashima. */
 package com.epion_t3.rdb.command.model;
 
 import com.epion_t3.core.common.annotation.CommandDefinition;
@@ -13,10 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@CommandDefinition(id = "AssertRdbData",
-        runner = AssertRdbDataRunner.class,
-        assertCommand = true,
-        reporter = AssertRdbDataReporter.class)
+@CommandDefinition(id = "AssertRdbData", runner = AssertRdbDataRunner.class, assertCommand = true, reporter = AssertRdbDataReporter.class)
 public class AssertRdbData extends Command {
 
     /**

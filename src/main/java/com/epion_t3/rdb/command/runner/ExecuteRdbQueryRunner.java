@@ -1,3 +1,4 @@
+/* Copyright (c) 2017-2020 Nozomu Takashima. */
 package com.epion_t3.rdb.command.runner;
 
 import com.epion_t3.core.command.bean.CommandResult;
@@ -36,8 +37,7 @@ public class ExecuteRdbQueryRunner extends AbstractCommandRunner<ExecuteRdbQuery
         }
 
         // 接続先設定を参照
-        RdbConnectionConfiguration rdbConnectionConfiguration =
-                referConfiguration(command.getRdbConnectConfigRef());
+        RdbConnectionConfiguration rdbConnectionConfiguration = referConfiguration(command.getRdbConnectConfigRef());
 
         // クエリー文字列を取得
         String query = command.getValue();

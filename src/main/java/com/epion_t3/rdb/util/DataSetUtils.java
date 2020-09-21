@@ -1,3 +1,4 @@
+/* Copyright (c) 2017-2020 Nozomu Takashima. */
 package com.epion_t3.rdb.util;
 
 import com.epion_t3.core.exception.SystemException;
@@ -41,7 +42,7 @@ public final class DataSetUtils {
     /**
      * DataSet読込.
      *
-     * @param path        パス
+     * @param path パス
      * @param dataSetType DataSet種別
      * @return DataSet
      */
@@ -57,26 +58,26 @@ public final class DataSetUtils {
 
         try (FileInputStream fis = new FileInputStream(path.toFile())) {
             switch (dataSetType) {
-                case CSV:
-                    // TODO
-                    // iDataSet = new CsvDataSet(dataSetPath.toFile());
-                    //break;
-                    throw new SystemException(RdbMessages.RDB_ERR_0008);
-                case XML:
-                    iDataSet = new XmlDataSet(fis);
-                    break;
-                case FLAT_XML:
-                    FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
-                    builder.setDtdMetadata(true);
-                    builder.setColumnSensing(true);
-                    iDataSet = builder.build(fis);
-                    break;
-                case EXCEL:
-                    iDataSet = new XlsDataSet(fis);
-                    break;
-                default:
-                    // ありえない
-                    throw new SystemException(RdbMessages.RDB_ERR_0007, dataSetType);
+            case CSV:
+                // TODO
+                // iDataSet = new CsvDataSet(dataSetPath.toFile());
+                // break;
+                throw new SystemException(RdbMessages.RDB_ERR_0008);
+            case XML:
+                iDataSet = new XmlDataSet(fis);
+                break;
+            case FLAT_XML:
+                FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
+                builder.setDtdMetadata(true);
+                builder.setColumnSensing(true);
+                iDataSet = builder.build(fis);
+                break;
+            case EXCEL:
+                iDataSet = new XlsDataSet(fis);
+                break;
+            default:
+                // ありえない
+                throw new SystemException(RdbMessages.RDB_ERR_0007, dataSetType);
             }
             return iDataSet;
         } catch (IOException | DataSetException e) {

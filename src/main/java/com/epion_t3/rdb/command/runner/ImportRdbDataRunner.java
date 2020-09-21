@@ -1,3 +1,4 @@
+/* Copyright (c) 2017-2020 Nozomu Takashima. */
 package com.epion_t3.rdb.command.runner;
 
 import com.epion_t3.core.command.bean.CommandResult;
@@ -8,6 +9,7 @@ import com.epion_t3.rdb.configuration.model.RdbConnectionConfiguration;
 import com.epion_t3.rdb.message.RdbMessages;
 import com.epion_t3.rdb.type.DataSetType;
 import com.epion_t3.rdb.type.OperationType;
+import com.epion_t3.rdb.util.DataSetUtils;
 import com.epion_t3.rdb.util.RdbAccessUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -38,8 +40,7 @@ public class ImportRdbDataRunner extends AbstractCommandRunner<ImportRdbData> {
     public CommandResult execute(ImportRdbData command, Logger logger) throws Exception {
 
         // 接続先設定を参照
-        RdbConnectionConfiguration rdbConnectionConfiguration =
-                referConfiguration(command.getRdbConnectConfigRef());
+        RdbConnectionConfiguration rdbConnectionConfiguration = referConfiguration(command.getRdbConnectConfigRef());
 
         // DataSetの配置パスを取得
         String dataSet = command.getValue();
@@ -66,30 +67,7 @@ public class ImportRdbDataRunner extends AbstractCommandRunner<ImportRdbData> {
         }
 
         // データセット読み込み
-        IDataSet iDataSet = null;
-
-        try (FileInputStream fis = new FileInputStream(dataSetPath.toFile())) {
-
-            switch (dataSetType) {
-                case CSV:
-                    // TODO
-                    // iDataSet = new CsvDataSet(dataSetPath.toFile());
-                    //break;
-                    throw new SystemException(RdbMessages.RDB_ERR_0008);
-                case XML:
-                    FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
-                    builder.setColumnSensing(true);
-                    iDataSet = builder.build(fis);
-                    break;
-                case EXCEL:
-                    iDataSet = new XlsDataSet(fis);
-                    break;
-                default:
-                    // ありえない
-                    break;
-            }
-
-        }
+        IDataSet iDataSet = DataSetUtils.getInstance().readDataSet(dataSetPath, dataSetType);
 
         // バインド
         if (command.isBind()) {
@@ -97,15 +75,14 @@ public class ImportRdbDataRunner extends AbstractCommandRunner<ImportRdbData> {
 
             // プロファイル定数
             for (Map.Entry<String, String> entry : getProfileConstants().entrySet()) {
-                ((ReplacementDataSet) iDataSet).addReplacementObject(
-                        String.format("${%s}", entry.getKey()), entry.getValue());
+                ((ReplacementDataSet) iDataSet).addReplacementObject(String.format("${%s}", entry.getKey()),
+                        entry.getValue());
             }
 
             // グローバル変数
             for (Map.Entry<String, Object> entry : getGlobalScopeVariables().entrySet()) {
                 ((ReplacementDataSet) iDataSet).addReplacementObject(
-                        String.format("${%s.%s}", "global", entry.getKey()),
-                        entry.getValue().toString());
+                        String.format("${%s.%s}", "global", entry.getKey()), entry.getValue().toString());
             }
 
             // シナリオ変数
@@ -117,52 +94,49 @@ public class ImportRdbDataRunner extends AbstractCommandRunner<ImportRdbData> {
 
             // Flow変数
             for (Map.Entry<String, Object> entry : getFlowScopeVariables().entrySet()) {
-                ((ReplacementDataSet) iDataSet).addReplacementObject(
-                        String.format("${%s.%s}", "flow", entry.getKey()),
+                ((ReplacementDataSet) iDataSet).addReplacementObject(String.format("${%s.%s}", "flow", entry.getKey()),
                         entry.getValue().toString());
             }
 
         }
 
         // オペレーションを特定
-        OperationType operationType =
-                OperationType.valueOfByValue(command.getOperation().toLowerCase());
+        OperationType operationType = OperationType.valueOfByValue(command.getOperation().toLowerCase());
 
         switch (operationType) {
-            case INSERT:
-            case CLEAN_INSERT:
-            case UPDATE:
-            case REFRESH:
-                IDatabaseConnection conn = null;
-                try {
-                    // コネクションを取得
-                    conn = RdbAccessUtils.getInstance().getDatabaseConnection(rdbConnectionConfiguration);
+        case INSERT:
+        case CLEAN_INSERT:
+        case UPDATE:
+        case REFRESH:
+            IDatabaseConnection conn = null;
+            try {
+                // コネクションを取得
+                conn = RdbAccessUtils.getInstance().getDatabaseConnection(rdbConnectionConfiguration);
 
-                    // オペレーション実行
-                    operationType.getOperation().execute(conn, iDataSet);
+                // オペレーション実行
+                operationType.getOperation().execute(conn, iDataSet);
 
-                } catch (SQLException | DatabaseUnitException e) {
-                    log.debug("Error Occurred...", e);
-                    throw new SystemException(e, RdbMessages.RDB_ERR_0010);
-                } finally {
-                    if (conn != null) {
-                        try {
-                            conn.close();
-                        } catch (SQLException e) {
-                            // Ignore
-                            log.trace("Error Occurred... -> Ignore", e);
-                        }
+            } catch (SQLException | DatabaseUnitException e) {
+                log.debug("Error Occurred...", e);
+                throw new SystemException(e, RdbMessages.RDB_ERR_0010);
+            } finally {
+                if (conn != null) {
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        // Ignore
+                        log.trace("Error Occurred... -> Ignore", e);
                     }
                 }
-                break;
-            default:
-                // データインポートとは関係のないオペレーションのためエラー
-                throw new SystemException(RdbMessages.RDB_ERR_0009, operationType.getValue());
+            }
+            break;
+        default:
+            // データインポートとは関係のないオペレーションのためエラー
+            throw new SystemException(RdbMessages.RDB_ERR_0009, operationType.getValue());
         }
 
         return CommandResult.getSuccess();
 
     }
-
 
 }

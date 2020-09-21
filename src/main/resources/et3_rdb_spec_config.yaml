@@ -95,7 +95,7 @@ commands:
         type: string
         summary:
           - lang: ja_JP
-            contents: "(xml|excel) # (2)"
+            contents: "(xml|flatXml|excel) # (2)"
         description:
           - lang: ja_JP
             contents: "DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。"
@@ -200,7 +200,7 @@ commands:
         type: string
         summary:
           - lang: ja_JP
-            contents: "(xml|excel) # (2)"
+            contents: "(xml|flatXml|excel) # (2)"
         description:
           - lang: ja_JP
             contents: "DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。"
@@ -438,7 +438,7 @@ commands:
         type: string
         summary:
           - lang: ja_JP
-            contents: "(xml|excel) # (2)"
+            contents: "(xml|flatXml|excel) # (2)"
         description:
           - lang: ja_JP
             contents: "DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。"

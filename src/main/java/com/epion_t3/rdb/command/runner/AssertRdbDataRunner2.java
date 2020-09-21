@@ -1,3 +1,4 @@
+/* Copyright (c) 2017-2020 Nozomu Takashima. */
 package com.epion_t3.rdb.command.runner;
 
 import com.epion_t3.core.command.bean.CommandResult;
@@ -41,8 +42,7 @@ public class AssertRdbDataRunner2 extends AbstractCommandRunner<ExportRdbData> {
     public CommandResult execute(ExportRdbData command, Logger logger) throws Exception {
 
         // 接続先設定を参照
-        RdbConnectionConfiguration rdbConnectionConfiguration =
-                referConfiguration(command.getRdbConnectConfigRef());
+        RdbConnectionConfiguration rdbConnectionConfiguration = referConfiguration(command.getRdbConnectConfigRef());
 
         // データセット種別
         DataSetType dataSetType = DataSetType.valueOfByValue(command.getDataSetType());
@@ -75,30 +75,30 @@ public class AssertRdbDataRunner2 extends AbstractCommandRunner<ExportRdbData> {
 
             // データセットの種類によって出力処理を行う
             switch (dataSetType) {
-                case CSV:
-                    // TODO
-                    // iDataSet = new CsvDataSet(dataSetPath.toFile());
-                    //break;
-                    throw new SystemException(RdbMessages.RDB_ERR_0008);
-                case XML:
-                    Path flatXmlPath = getEvidencePath("export.xml");
-                    try (OutputStream os = new FileOutputStream(flatXmlPath.toFile())) {
-                        FlatXmlWriter writer = new FlatXmlWriter(os);
-                        writer.write(iDataSet);
-                    }
-                    registrationFileEvidence(flatXmlPath);
-                    break;
-                case EXCEL:
-                    Path xlsxPath = getEvidencePath("export.xlsx");
-                    try (OutputStream os = new FileOutputStream(xlsxPath.toFile())) {
-                        XlsxDataSetWriter writer = new XlsxDataSetWriter();
-                        writer.write(iDataSet, os);
-                    }
-                    registrationFileEvidence(xlsxPath);
-                    break;
-                default:
-                    // ありえない
-                    break;
+            case CSV:
+                // TODO
+                // iDataSet = new CsvDataSet(dataSetPath.toFile());
+                // break;
+                throw new SystemException(RdbMessages.RDB_ERR_0008);
+            case XML:
+                Path flatXmlPath = getEvidencePath("export.xml");
+                try (OutputStream os = new FileOutputStream(flatXmlPath.toFile())) {
+                    FlatXmlWriter writer = new FlatXmlWriter(os);
+                    writer.write(iDataSet);
+                }
+                registrationFileEvidence(flatXmlPath);
+                break;
+            case EXCEL:
+                Path xlsxPath = getEvidencePath("export.xlsx");
+                try (OutputStream os = new FileOutputStream(xlsxPath.toFile())) {
+                    XlsxDataSetWriter writer = new XlsxDataSetWriter();
+                    writer.write(iDataSet, os);
+                }
+                registrationFileEvidence(xlsxPath);
+                break;
+            default:
+                // ありえない
+                break;
             }
         } catch (SQLException | DatabaseUnitException e) {
             log.debug("Error Occurred...", e);
@@ -117,6 +117,5 @@ public class AssertRdbDataRunner2 extends AbstractCommandRunner<ExportRdbData> {
         return CommandResult.getSuccess();
 
     }
-
 
 }

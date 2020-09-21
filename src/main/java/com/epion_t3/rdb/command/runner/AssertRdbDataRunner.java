@@ -1,3 +1,4 @@
+/* Copyright (c) 2017-2020 Nozomu Takashima. */
 package com.epion_t3.rdb.command.runner;
 
 import com.epion_t3.core.command.bean.CommandResult;
@@ -75,10 +76,8 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
                 // カラム数不一致
                 assertResultTable.setColumnNumAssert(AssertStatus.NG);
                 result.setAssertStatus(AssertStatus.NG);
-                log.debug("!NG! table:{}, expectedColumnNum:{}, actualColumnNum:{}",
-                        assertTargetTable.getTable(),
-                        expectedMetaData.getColumns().length,
-                        actualMetaData.getColumns().length);
+                log.debug("!NG! table:{}, expectedColumnNum:{}, actualColumnNum:{}", assertTargetTable.getTable(),
+                        expectedMetaData.getColumns().length, actualMetaData.getColumns().length);
                 continue;
             } else {
                 assertResultTable.setColumnNumAssert(AssertStatus.OK);
@@ -103,8 +102,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
                     assertResultTable.setColumnIndexAssert(AssertStatus.NG);
                     result.setAssertStatus(AssertStatus.NG);
                     log.debug("!NG! table:{}, column:{}, expectedIndex:{}, actualIndex:{}",
-                            assertTargetTable.getTable(), expectedCol.getColumnName(),
-                            expectedColIndex,
+                            assertTargetTable.getTable(), expectedCol.getColumnName(), expectedColIndex,
                             actualColIndex);
                     break;
                 } else {
@@ -133,8 +131,9 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
                     } else {
 
                         // 型の確認を行う
-                        if (!expectedCol.getDataType().getClass().isAssignableFrom(
-                                actualCol.getDataType().getClass())) {
+                        if (!expectedCol.getDataType()
+                                .getClass()
+                                .isAssignableFrom(actualCol.getDataType().getClass())) {
                             // 型の不一致
                             dataType.setStatus(AssertStatus.NG);
                             result.setAssertStatus(AssertStatus.NG);
@@ -177,9 +176,8 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 //                    .map(x -> x.getColumnName())
 //                    .collect(Collectors.toList());
 
-            for (int rowCount = 0;
-                 (rowCount < expectedTable.getRowCount() && rowCount < actualTable.getRowCount());
-                 rowCount++) {
+            for (int rowCount = 0; (rowCount < expectedTable.getRowCount()
+                    && rowCount < actualTable.getRowCount()); rowCount++) {
 
                 AssertResultRow assertResultRow = new AssertResultRow();
                 assertResultTable.getRows().add(assertResultRow);
@@ -206,8 +204,8 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
                             // OK
                             assertColumn.setStatus(AssertStatus.OK);
                             assertResultRow.addOkColumnCount();
-                            log.debug("[OK] table:{}, column:{}, expected:{}, actual:{}",
-                                    assertTargetTable.getTable(), column, expectedValue, actualValue);
+                            log.debug("[OK] table:{}, column:{}, expected:{}, actual:{}", assertTargetTable.getTable(),
+                                    column, expectedValue, actualValue);
                         } else {
                             // NG
                             assertColumn.setStatus(AssertStatus.NG);
@@ -215,18 +213,19 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
                                 assertResultRow.addNgColumnCount();
                                 result.setAssertStatus(AssertStatus.NG);
                             }
-                            log.debug("!NG! table:{}, column:{}, expected:{}, actual:{}",
-                                    assertTargetTable.getTable(), column, expectedValue, actualValue);
+                            log.debug("!NG! table:{}, column:{}, expected:{}, actual:{}", assertTargetTable.getTable(),
+                                    column, expectedValue, actualValue);
                         }
 
                     } else {
                         // カラムの型が解決できない場合はエラー
-                        throw new SystemException(RdbMessages.RDB_ERR_0019,
-                                assertTargetTable.getTable(), column);
+                        throw new SystemException(RdbMessages.RDB_ERR_0019, assertTargetTable.getTable(), column);
                     }
                 }
 
-                if (assertResultRow.getColumns().stream().anyMatch(x -> !x.isIgnore() && x.getStatus() == AssertStatus.NG)) {
+                if (assertResultRow.getColumns()
+                        .stream()
+                        .anyMatch(x -> !x.isIgnore() && x.getStatus() == AssertStatus.NG)) {
                     assertResultTable.addNgRowCount();
                     assertResultRow.setRowAssert(AssertStatus.NG);
                 } else {
@@ -244,12 +243,11 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 
     }
 
-
     /**
      * 期待値DataSet読込.
      *
      * @param command コマンド
-     * @param logger  ロガー
+     * @param logger ロガー
      * @return 期待値DataSet
      */
     private IDataSet getExpectedDataSet(AssertRdbData command, Logger logger) {
@@ -289,7 +287,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
      * 結果値DataSet読込.
      *
      * @param command コマンド
-     * @param logger  ロガー
+     * @param logger ロガー
      * @return 結果値DataSet
      */
     private IDataSet getActualDataSet(AssertRdbData command, Logger logger) {
@@ -323,6 +321,5 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 
         return iDataSet;
     }
-
 
 }

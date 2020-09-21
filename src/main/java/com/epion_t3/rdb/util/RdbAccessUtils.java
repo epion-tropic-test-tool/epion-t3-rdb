@@ -1,3 +1,4 @@
+/* Copyright (c) 2017-2020 Nozomu Takashima. */
 package com.epion_t3.rdb.util;
 
 import com.epion_t3.core.exception.SystemException;
@@ -65,7 +66,7 @@ public final class RdbAccessUtils {
     }
 
     public IDatabaseConnection getDatabaseConnection(RdbConnectionConfiguration rdbConnectionConfiguration,
-                                                     DataSource dataSource) {
+            DataSource dataSource) {
 
         if (StringUtils.isEmpty(rdbConnectionConfiguration.getRdbKind())) {
             throw new SystemException(RdbMessages.RDB_ERR_0013);
@@ -81,40 +82,37 @@ public final class RdbAccessUtils {
 
             if (rdbType != null) {
                 switch (rdbType) {
-                    case ORACLE:
-                        if (StringUtils.isNotEmpty(schema)) {
-                            conn = new DatabaseDataSourceConnection(dataSource, schema);
-                        } else {
-                            conn = new DatabaseDataSourceConnection(dataSource);
-                        }
-                        DatabaseConfig configOracle = conn.getConfig();
-                        configOracle.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
-                                new OracleDataTypeFactory());
-                        break;
-                    case MYSQL:
-                        if (StringUtils.isNotEmpty(schema)) {
-                            conn = new DatabaseDataSourceConnection(dataSource, schema);
-                        } else {
-                            conn = new DatabaseDataSourceConnection(dataSource);
-                        }
-                        DatabaseConfig configMysql = conn.getConfig();
-                        configMysql.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
-                                new MySqlDataTypeFactory());
-                        configMysql.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER,
-                                new MySqlMetadataHandler());
-                        break;
-                    case POSTGRESQL:
-                        if (StringUtils.isNotEmpty(schema)) {
-                            conn = new DatabaseDataSourceConnection(dataSource, schema);
-                        } else {
-                            conn = new DatabaseDataSourceConnection(dataSource);
-                        }
-                        DatabaseConfig configPostgre = conn.getConfig();
-                        configPostgre.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
-                                new PostgresqlDataTypeFactory());
-                        break;
-                    default:
-                        throw new SystemException(RdbMessages.RDB_ERR_0014, rdbConnectionConfiguration.getRdbKind());
+                case ORACLE:
+                    if (StringUtils.isNotEmpty(schema)) {
+                        conn = new DatabaseDataSourceConnection(dataSource, schema);
+                    } else {
+                        conn = new DatabaseDataSourceConnection(dataSource);
+                    }
+                    DatabaseConfig configOracle = conn.getConfig();
+                    configOracle.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new OracleDataTypeFactory());
+                    break;
+                case MYSQL:
+                    if (StringUtils.isNotEmpty(schema)) {
+                        conn = new DatabaseDataSourceConnection(dataSource, schema);
+                    } else {
+                        conn = new DatabaseDataSourceConnection(dataSource);
+                    }
+                    DatabaseConfig configMysql = conn.getConfig();
+                    configMysql.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
+                    configMysql.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
+                    break;
+                case POSTGRESQL:
+                    if (StringUtils.isNotEmpty(schema)) {
+                        conn = new DatabaseDataSourceConnection(dataSource, schema);
+                    } else {
+                        conn = new DatabaseDataSourceConnection(dataSource);
+                    }
+                    DatabaseConfig configPostgre = conn.getConfig();
+                    configPostgre.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+                            new PostgresqlDataTypeFactory());
+                    break;
+                default:
+                    throw new SystemException(RdbMessages.RDB_ERR_0014, rdbConnectionConfiguration.getRdbKind());
                 }
                 return conn;
             } else {

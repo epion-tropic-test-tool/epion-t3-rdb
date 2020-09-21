@@ -1,3 +1,4 @@
+/* Copyright (c) 2017-2020 Nozomu Takashima. */
 package com.epion_t3.rdb.command.runner;
 
 import com.epion_t3.core.command.bean.CommandResult;
@@ -38,10 +39,9 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
         if (StringUtils.isEmpty(command.getRdbConnectConfigRef())) {
             throw new SystemException(RdbMessages.RDB_ERR_0002);
         }
-        
+
         // 接続先設定を参照
-        RdbConnectionConfiguration rdbConnectionConfiguration =
-                referConfiguration(command.getRdbConnectConfigRef());
+        RdbConnectionConfiguration rdbConnectionConfiguration = referConfiguration(command.getRdbConnectConfigRef());
 
         // スクリプトパスを取得
         String script = command.getValue();

@@ -17,6 +17,91 @@ info:
     - lang: ja_JP
       contents: "RDB（Relational DataBase）関連のコマンドを提供します。"
 #####################################
+# 設定定義
+#####################################
+configurations:
+  ####################################
+  # RdbConnectionConfiguration
+  ####################################
+  - id: RdbConnectionConfiguration
+    summary:
+      - lang: ja_JP
+        contents: "RDB接続先設定です。"
+    description:
+      - lang: ja_JP
+        contents: "RDBのJDBC接続を行う際に必要な情報を定義します。"
+    structure:
+      - order: 1
+        name: configuration
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "「RdbConnectionConfiguration」固定"
+      - order: 2
+        name: id
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: 設定のID
+      - order: 3
+        name: summary
+        required: false
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: 設定の概要（任意）
+      - order: 4
+        name: description
+        required: false
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: 設定の詳細（任意）
+      - order: 5
+        name: driverClassName
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "RDB接続用のJDBCドライバーのクラス名（FQCN）"
+      - order: 6
+        name: url
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: RDB接続用のJDBCのURL
+      - order: 7
+        name: username
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "RDB接続用のユーザー"
+      - order: 7
+        name: password
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "RDB接続用のパスワード"
+      - order: 8
+        name: schema
+        required: false
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "RDBの接続スキーマ"
+      - order: 9
+        name: rdbKind
+        required: false
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "「RDB」固定"
+#####################################
 # コマンド定義
 #####################################
 commands:

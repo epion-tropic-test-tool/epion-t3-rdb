@@ -1,4 +1,7 @@
-#  Command
+#  カスタム機能ドキュメント
+
+このドキュメントは、 のカスタム機能が提供する、
+Flow、コマンド、設定定義についての説明及び出力するメッセージの定義について説明する。
 
 - Contents
   - [Information](#Information)
@@ -8,8 +11,10 @@
   - [Configuration List](#Configuration-List)
   - [Message List](#Message-List)
 
-
 ## Information
+
+本カスタム機能の基本情報は以下の通り。
+
 RDB（Relational DataBase）関連のコマンドを提供します。
 
 - Name : `rdb`
@@ -20,7 +25,15 @@ RDB（Relational DataBase）関連のコマンドを提供します。
 
 ## Flow List
 
+本カスタム機能が提供するFlowの一覧及び詳細。
+
+|Name|Summary|
+|:---|:---|
+
+
 ## Command List
+
+本カスタム機能が提供するコマンドの一覧及び詳細。
 
 |Name|Summary|Assert|Evidence|
 |:---|:---|:---|:---|
@@ -51,7 +64,7 @@ commands :
   summary : コマンドの概要（任意）
   description : コマンドの詳細（任意）
   rdbConnectConfigRef : RDBに対する接続先定義の参照ID # (1)
-  dataSetType : (xml|excel) # (2)
+  dataSetType : (xml|flatXml|excel) # (2)
   tables : エクスポート対象のテーブルを定義 # (3)
 
 ```
@@ -81,7 +94,7 @@ commands :
   summary : コマンドの概要（任意）
   description : コマンドの詳細（任意）
   rdbConnectConfigRef : RDBに対する接続先定義の参照ID # (1)
-  dataSetType : (xml|excel) # (2)
+  dataSetType : (xml|flatXml|excel) # (2)
   operation : (insert|clean_insert|update|refresh) # (3)
   bind : 変数バインドを行うかどうかのフラグ # (4)
   value : インポートするDataSetのパス（相対） # (5)
@@ -140,7 +153,7 @@ commands :
   summary : コマンドの概要（任意）
   description : コマンドの詳細（任意）
   expectedDataSetPath : 期待値データセット相対パス # (1)
-  expectedDataSetType : (xml|excel) # (2)
+  expectedDataSetType : (xml|flatXml|excel) # (2)
   actualFlowId : 結果値を取得したFlowのFlowIDを指定 # (3)
   actualDataSetType : (xml|excel) # (4)
   tables : アサートの詳細設定
@@ -179,9 +192,39 @@ commands :
 
 ## Configuration List
 
+本カスタム機能が提供する設定定義の一覧及び詳細。
+
+|Name|Summary|
+|:---|:---|
+|[RdbConnectionConfiguration](#RdbConnectionConfiguration)|RDB接続先設定です。  |
+
+------
+
+### RdbConnectionConfiguration
+RDB接続先設定です。
+#### Description
+- RDB（Relational DataBase）関連のコマンドを提供します。
+
+#### Structure
+```yaml
+commands : 
+  configuration : 「RdbConnectionConfiguration」固定
+  id : 設定のID
+  summary : 設定の概要（任意）
+  description : 設定の詳細（任意）
+  driverClassName : RDB接続用のJDBCドライバーのクラス名（FQCN）
+  url : RDB接続用のJDBCのURL
+  username : RDB接続用のユーザー
+  password : RDB接続用のパスワード
+  schema : RDBの接続スキーマ
+  rdbKind : 「RDB」固定
+
+```
+
+
 ## Message List
 
- Command output messages.
+本カスタム機能が出力するメッセージの一覧及び内容。
 
 |MessageID|MessageContents|
 |:---|:---|

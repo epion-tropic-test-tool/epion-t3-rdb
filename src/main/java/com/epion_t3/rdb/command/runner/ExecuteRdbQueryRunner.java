@@ -58,7 +58,7 @@ public class ExecuteRdbQueryRunner extends AbstractCommandRunner<ExecuteRdbQuery
                 if (StringUtils.isNotEmpty(q)) {
                     try (PreparedStatement statement = conn.prepareStatement(q)) {
                         log.trace("execute query -> {}", q);
-                        statement.execute(q);
+                        statement.execute();
                     }
                 }
             }

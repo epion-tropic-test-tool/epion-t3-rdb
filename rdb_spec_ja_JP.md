@@ -203,7 +203,7 @@ commands :
 ### RdbConnectionConfiguration
 RDB接続先設定です。
 #### Description
-- RDB（Relational DataBase）関連のコマンドを提供します。
+- RDBのJDBC接続を行う際に必要な情報を定義します。
 
 #### Structure
 ```yaml

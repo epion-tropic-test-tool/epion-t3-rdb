@@ -9,6 +9,7 @@ languages:
 #####################################
 info:
   name: rdb
+  labelName: RDB
   customPackage: com.epion_t3.rdb
   summary:
     - lang: ja_JP

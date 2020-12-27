@@ -46,4 +46,11 @@ public class RdbConnectionConfiguration extends Configuration {
      */
     private String rdbKind;
 
+    /**
+     * データベース名.
+     * 
+     * @since 0.0.3
+     */
+    private String dbName;
+
 }

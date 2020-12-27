@@ -103,7 +103,14 @@ configurations:
         type: string
         summary:
           - lang: ja_JP
-            contents: "「RDB」固定"
+            contents: "「oracle」「mysql」「postgresql」「snowflake」のいずれかを指定します。"
+      - order: 10
+        name: dbName
+        required: false
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "rdbKindが「snowflake」の場合に必須となる。Snowflakeのデータベース名を指定します。"
 #####################################
 # コマンド定義
 #####################################

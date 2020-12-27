@@ -3,28 +3,51 @@ package com.epion_t3.rdb.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.util.Arrays;
 
+/**
+ * RDB種別.
+ */
 @Getter
 @AllArgsConstructor
 public enum RdbType {
 
+    /**
+     * MySQL.
+     */
     MYSQL("mysql"),
 
+    /**
+     * PostgreSQL.
+     */
     POSTGRESQL("postgresql"),
 
-    ORACLE("oracle");
+    /**
+     * Oracle.
+     */
+    ORACLE("oracle"),
 
+    /**
+     * Snowflake.
+     * 
+     * @since 0.0.3
+     */
+    SNOWFLAKE("snowflake");
+
+    /**
+     * 値.
+     */
     private String value;
 
     /**
      * 値から列挙子を取得.
      *
-     * @param value
-     * @return
+     * @param value 値
+     * @return {@link RdbType}
      */
-    public static RdbType valueOfByValue(final String value) {
-        return Arrays.stream(values()).filter(x -> x.value.equals(value)).findFirst().orElse(null);
+    public static RdbType valueOfByValue(@NonNull final String value) {
+        return Arrays.stream(values()).filter(x -> x.value.equals(value.toLowerCase())).findFirst().orElse(null);
     }
 }

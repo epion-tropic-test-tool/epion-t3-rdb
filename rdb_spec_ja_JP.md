@@ -217,7 +217,8 @@ commands :
   username : RDB接続用のユーザー
   password : RDB接続用のパスワード
   schema : RDBの接続スキーマ
-  rdbKind : 「RDB」固定
+  rdbKind : 「oracle」「mysql」「postgresql」「snowflake」のいずれかを指定します。
+  dbName : rdbKindが「snowflake」の場合に必須となる。Snowflakeのデータベース名を指定します。
 
 ```
 

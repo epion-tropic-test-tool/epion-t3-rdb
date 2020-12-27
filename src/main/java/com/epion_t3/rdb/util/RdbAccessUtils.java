@@ -3,6 +3,7 @@ package com.epion_t3.rdb.util;
 
 import com.epion_t3.core.exception.SystemException;
 import com.epion_t3.rdb.configuration.model.RdbConnectionConfiguration;
+import com.epion_t3.rdb.handler.SnowflakeMetadataHandler;
 import com.epion_t3.rdb.message.RdbMessages;
 import com.epion_t3.rdb.type.RdbType;
 import lombok.extern.slf4j.Slf4j;
@@ -110,6 +111,17 @@ public final class RdbAccessUtils {
                     DatabaseConfig configPostgre = conn.getConfig();
                     configPostgre.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
                             new PostgresqlDataTypeFactory());
+                    break;
+                case SNOWFLAKE:
+                    if (StringUtils.isNotEmpty(schema)) {
+                        conn = new DatabaseDataSourceConnection(dataSource, schema);
+                    } else {
+                        conn = new DatabaseDataSourceConnection(dataSource);
+                    }
+                    DatabaseConfig configSnowflake = conn.getConfig();
+                    configSnowflake.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new OracleDataTypeFactory());
+                    configSnowflake.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER,
+                            new SnowflakeMetadataHandler(rdbConnectionConfiguration.getDbName()));
                     break;
                 default:
                     throw new SystemException(RdbMessages.RDB_ERR_0014, rdbConnectionConfiguration.getRdbKind());

@@ -277,9 +277,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
         }
 
         // データセット読み込み
-        IDataSet iDataSet = DataSetUtils.getInstance().readDataSet(dataSetPath, dataSetType);
-
-        return iDataSet;
+        return DataSetUtils.getInstance().readDataSet(dataSetPath, dataSetType);
 
     }
 
@@ -317,9 +315,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
         }
 
         // データセット読み込み
-        IDataSet iDataSet = DataSetUtils.getInstance().readDataSet(dataSetPath, dataSetType);
-
-        return iDataSet;
+        return DataSetUtils.getInstance().readDataSet(dataSetPath, dataSetType);
     }
 
 }

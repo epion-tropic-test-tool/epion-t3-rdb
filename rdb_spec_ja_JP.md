@@ -229,12 +229,13 @@ commands :
 
 |MessageID|MessageContents|
 |:---|:---|
-|com.epion_t3.basic.err.9008|対象のファイルの読み込みに失敗しました.パス：{0}|
-|com.epion_t3.basic.err.9009|本コマンドはjava.util.Dateを扱うためのコマンドです.変数に格納されているものは型が異なります.|
 |com.epion_t3.basic.err.9010|フォーマット後の格納先変数の指定は必須です.|
 |com.epion_t3.basic.inf.0001|指定パターンに合致する文字列が含まれています.指定パターン:{0}|
+|com.epion_t3.basic.err.9008|対象のファイルの読み込みに失敗しました.パス：{0}|
+|com.epion_t3.basic.err.9009|本コマンドはjava.util.Dateを扱うためのコマンドです.変数に格納されているものは型が異なります.|
 |com.epion_t3.basic.err.9011|日付演算後の格納先変数の指定は必須です.|
 |com.epion_t3.basic.err.9001|参照する変数のスコープが不正です.スコープ:{0}|
+|com.epion_t3.basic.err.9012|指定できるQueryは1つです。複数のクエリーを指定しないでください。|
 |com.epion_t3.basic.err.9002|指定パターンに合致する文字列が含まれていません.指定パターン:{0}|
 |com.epion_t3.basic.err.9003|値（value）は必須です.|
 |com.epion_t3.basic.err.9004|値（value）は数値で指定してください.|

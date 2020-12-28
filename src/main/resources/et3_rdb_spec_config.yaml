@@ -579,6 +579,83 @@ commands:
             summary:
               - lang: ja_JP
                 contents: "対象のテーブル内でアサートの対象外としたいカラムの指定を行います。"
+  ##########################
+  # StoreRdbQueryResult
+  ##########################
+  - id: StoreRdbQueryResult
+    summary:
+      - lang: ja_JP
+        contents: "RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。"
+    testItem:
+      - order: 1
+        summary:
+          - lang: ja_JP
+            contents: "RDB「${rdbConnectConfigRef}」に対して「${value}」を実行します。"
+    function:
+      - order: 1
+        summary:
+          - lang: ja_JP
+            contents: "RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。"
+      - order: 2
+        summary:
+          - lang: ja_JP
+            contents: "クエリー（SQL）へETTTの変数バインドが可能です。"
+    structure:
+      - order: 1
+        name: id
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: コマンドのID
+      - order: 2
+        name: command
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: 「StoreRdbQueryResult」固定
+      - order: 3
+        name: summary
+        required: false
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: コマンドの概要（任意）
+      - order: 4
+        name: description
+        required: false
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: コマンドの詳細（任意）
+      - order: 5
+        name: rdbConnectConfigRef
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "RDBに対する接続先定義の参照ID # (1)"
+        description:
+          - lang: ja_JP
+            contents: "RDBへの接続先の設定を行っている `Configuration` の参照IDを指定します。"
+      - order: 6
+        name: value
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "クエリー（SQL）を指定します。"
+      - order: 7
+        name: target
+        required: true
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: 変数名を指定 # (1)
+        description:
+          - lang: ja_JP
+            contents: 変数名は「スコープ.変数名」の形式で指定します。「global.hoge」であればグローバルスコープにhogeという変数名で値を定義することになります。
 #####################################
 # メッセージ定義
 #####################################
@@ -631,3 +708,7 @@ messages:
     message:
       - lang: ja_JP
         contents: "日付演算後の格納先変数の指定は必須です."
+  - id: com.epion_t3.basic.err.9012
+    message:
+      - lang: ja_JP
+        contents: "指定できるQueryは1つです。複数のクエリーを指定しないでください。"

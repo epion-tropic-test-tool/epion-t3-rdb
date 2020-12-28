@@ -3,7 +3,7 @@ package com.epion_t3.rdb.command.model;
 
 import com.epion_t3.core.common.annotation.CommandDefinition;
 import com.epion_t3.core.common.bean.scenario.Command;
-import com.epion_t3.rdb.command.runner.StoreRdbQueryResultRunner;
+import com.epion_t3.rdb.command.runner.StoreRdbQueryResultSingleRunner;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.bval.constraints.NotEmpty;
@@ -16,7 +16,7 @@ import org.apache.bval.constraints.NotEmpty;
  */
 @Getter
 @Setter
-@CommandDefinition(id = "StoreRdbQueryResultSingle", runner = StoreRdbQueryResultRunner.class)
+@CommandDefinition(id = "StoreRdbQueryResultSingle", runner = StoreRdbQueryResultSingleRunner.class)
 public class StoreRdbQueryResultSingle extends Command {
 
     /**

@@ -38,7 +38,7 @@ RDB（Relational DataBase）関連のコマンドを提供します。
 |Name|Summary|Assert|Evidence|
 |:---|:---|:---|:---|
 |[ExportRdbData](#ExportRdbData)|RDBのデータを抽出（エクスポート）します。エクスポートしたデータはエビデンスとしても保存可能になります。  ||X|
-|[StoreRdbQueryResult](#StoreRdbQueryResult)|RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。  |||
+|[StoreRdbQueryResult](#StoreRdbQueryResult)|RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。  保持した結果は、レコード毎にjava.util.Listとして保持されます。  保持した結果のレコードは、Key：カラム名、値：カラム値となるMapとして保持されます。このMapは取得したカラムの順序も保持します。  |||
 |[ImportRdbData](#ImportRdbData)|RDBに対してデータの挿入（インポート）を行います。  ||X|
 |[ExecuteRdbScript](#ExecuteRdbScript)|RDBに対してスクリプト（SQL）を実行します。  |||
 |[AssertRdbData](#AssertRdbData)|RDBのレコードの確認を行います。  ||X|
@@ -76,7 +76,7 @@ commands :
 ------
 
 ### StoreRdbQueryResult
-RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。
+RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。保持した結果は、レコード毎にjava.util.Listとして保持されます。保持した結果のレコードは、Key：カラム名、値：カラム値となるMapとして保持されます。このMapは取得したカラムの順序も保持します。
 #### Command Type
 - Assert : No
 - Evidence : No
@@ -258,7 +258,9 @@ commands :
 |MessageID|MessageContents|
 |:---|:---|
 |com.zomu.t.epion.t3.rdb.err.0010|DataSetのインポートに失敗しました.|
+|com.zomu.t.epion.t3.rdb.err.0021|1カラムのみを取得するクエリーを指定してください。|
 |com.zomu.t.epion.t3.rdb.err.0011|RDBアクセスに失敗したため、DataSetのエクスポートに失敗しました.|
+|com.zomu.t.epion.t3.rdb.err.0022|1レコードのみを取得するクエリーを指定してください。|
 |com.zomu.t.epion.t3.rdb.err.0020|指定できるQueryは1つです。複数のクエリーを指定しないでください。|
 |com.zomu.t.epion.t3.rdb.err.0003|Scriptのパスが指定されていません.|
 |com.zomu.t.epion.t3.rdb.err.0014|RDBへの接続先定義のRDB種別が不正です.対応するRDBの値を設定してください.RDB種別：{0}|

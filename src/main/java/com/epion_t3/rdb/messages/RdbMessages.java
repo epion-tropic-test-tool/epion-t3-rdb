@@ -13,8 +13,14 @@ public enum RdbMessages implements Messages {
     /** DataSetのインポートに失敗しました. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0010("com.zomu.t.epion.t3.rdb.err.0010"),
 
+    /** 1カラムのみを取得するクエリーを指定してください。 */
+    RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0021("com.zomu.t.epion.t3.rdb.err.0021"),
+
     /** RDBアクセスに失敗したため、DataSetのエクスポートに失敗しました. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0011("com.zomu.t.epion.t3.rdb.err.0011"),
+
+    /** 1レコードのみを取得するクエリーを指定してください。 */
+    RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0022("com.zomu.t.epion.t3.rdb.err.0022"),
 
     /** 指定できるQueryは1つです。複数のクエリーを指定しないでください。 */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0020("com.zomu.t.epion.t3.rdb.err.0020"),

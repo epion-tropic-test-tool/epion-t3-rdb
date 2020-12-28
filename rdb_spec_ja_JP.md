@@ -42,6 +42,7 @@ RDB（Relational DataBase）関連のコマンドを提供します。
 |[ImportRdbData](#ImportRdbData)|RDBに対してデータの挿入（インポート）を行います。  ||X|
 |[ExecuteRdbScript](#ExecuteRdbScript)|RDBに対してスクリプト（SQL）を実行します。  |||
 |[AssertRdbData](#AssertRdbData)|RDBのレコードの確認を行います。  ||X|
+|[StoreRdbQueryResultSingle](#StoreRdbQueryResultSingle)|RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。  変数に対してシンプルに値を格納することができます。  成約として、このコマンドの結果は1レコード1カラムとしてください。  |||
 |[ExecuteRdbQuery](#ExecuteRdbQuery)|RDBに対してクエリー（SQL）を実行します。  |||
 
 ------
@@ -192,6 +193,33 @@ commands :
 1. DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。
 1. 結果値を取得したFlowIDを指定。
 1. DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。
+------
+
+### StoreRdbQueryResultSingle
+RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。変数に対してシンプルに値を格納することができます。成約として、このコマンドの結果は1レコード1カラムとしてください。
+#### Command Type
+- Assert : No
+- Evidence : No
+
+#### Functions
+- RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。
+- クエリー（SQL）へETTTの変数バインドが可能です。
+
+#### Structure
+```yaml
+commands : 
+  id : コマンドのID
+  command : 「StoreRdbQueryResultSingle」固定
+  summary : コマンドの概要（任意）
+  description : コマンドの詳細（任意）
+  rdbConnectConfigRef : RDBに対する接続先定義の参照ID # (1)
+  value : クエリー（SQL）を指定します。
+  target : 変数名を指定
+
+```
+
+1. RDBへの接続先の設定を行っている &#96;Configuration&#96; の参照IDを指定します。
+1. 変数名は「スコープ.変数名」の形式で指定します。「global.hoge」であればグローバルスコープにhogeという変数名で値を定義することになります。
 ------
 
 ### ExecuteRdbQuery

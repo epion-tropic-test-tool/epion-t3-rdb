@@ -4,7 +4,7 @@ package com.epion_t3.rdb.util;
 import com.epion_t3.core.exception.SystemException;
 import com.epion_t3.rdb.configuration.model.RdbConnectionConfiguration;
 import com.epion_t3.rdb.handler.SnowflakeMetadataHandler;
-import com.epion_t3.rdb.message.RdbMessages;
+import com.epion_t3.rdb.messages.RdbMessages;
 import com.epion_t3.rdb.type.RdbType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -70,7 +70,7 @@ public final class RdbAccessUtils {
             DataSource dataSource) {
 
         if (StringUtils.isEmpty(rdbConnectionConfiguration.getRdbKind())) {
-            throw new SystemException(RdbMessages.RDB_ERR_0013);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0013);
         }
 
         String schema = rdbConnectionConfiguration.getSchema();
@@ -124,15 +124,17 @@ public final class RdbAccessUtils {
                             new SnowflakeMetadataHandler(rdbConnectionConfiguration.getDbName()));
                     break;
                 default:
-                    throw new SystemException(RdbMessages.RDB_ERR_0014, rdbConnectionConfiguration.getRdbKind());
+                    throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0014,
+                            rdbConnectionConfiguration.getRdbKind());
                 }
                 return conn;
             } else {
-                throw new SystemException(RdbMessages.RDB_ERR_0014, rdbConnectionConfiguration.getRdbKind());
+                throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0014,
+                        rdbConnectionConfiguration.getRdbKind());
             }
 
         } catch (SQLException e) {
-            throw new SystemException(RdbMessages.RDB_ERR_0015);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0015);
         }
 
     }

@@ -38,6 +38,7 @@ RDB（Relational DataBase）関連のコマンドを提供します。
 |Name|Summary|Assert|Evidence|
 |:---|:---|:---|:---|
 |[ExportRdbData](#ExportRdbData)|RDBのデータを抽出（エクスポート）します。エクスポートしたデータはエビデンスとしても保存可能になります。  ||X|
+|[StoreRdbQueryResult](#StoreRdbQueryResult)|RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。  |||
 |[ImportRdbData](#ImportRdbData)|RDBに対してデータの挿入（インポート）を行います。  ||X|
 |[ExecuteRdbScript](#ExecuteRdbScript)|RDBに対してスクリプト（SQL）を実行します。  |||
 |[AssertRdbData](#AssertRdbData)|RDBのレコードの確認を行います。  ||X|
@@ -72,6 +73,33 @@ commands :
 1. RDBへの接続先の設定を行っている &#96;Configuration&#96; の参照IDを指定します。
 1. DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。
 1. エクスポートを行う対象のテーブルについて細かく指定が行えます。
+------
+
+### StoreRdbQueryResult
+RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。
+#### Command Type
+- Assert : No
+- Evidence : No
+
+#### Functions
+- RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。
+- クエリー（SQL）へETTTの変数バインドが可能です。
+
+#### Structure
+```yaml
+commands : 
+  id : コマンドのID
+  command : 「StoreRdbQueryResult」固定
+  summary : コマンドの概要（任意）
+  description : コマンドの詳細（任意）
+  rdbConnectConfigRef : RDBに対する接続先定義の参照ID # (1)
+  value : クエリー（SQL）を指定します。
+  target : 変数名を指定
+
+```
+
+1. RDBへの接続先の設定を行っている &#96;Configuration&#96; の参照IDを指定します。
+1. 変数名は「スコープ.変数名」の形式で指定します。「global.hoge」であればグローバルスコープにhogeという変数名で値を定義することになります。
 ------
 
 ### ImportRdbData
@@ -229,15 +257,23 @@ commands :
 
 |MessageID|MessageContents|
 |:---|:---|
-|com.epion_t3.basic.err.9008|対象のファイルの読み込みに失敗しました.パス：{0}|
-|com.epion_t3.basic.err.9009|本コマンドはjava.util.Dateを扱うためのコマンドです.変数に格納されているものは型が異なります.|
-|com.epion_t3.basic.err.9010|フォーマット後の格納先変数の指定は必須です.|
-|com.epion_t3.basic.inf.0001|指定パターンに合致する文字列が含まれています.指定パターン:{0}|
-|com.epion_t3.basic.err.9011|日付演算後の格納先変数の指定は必須です.|
-|com.epion_t3.basic.err.9001|参照する変数のスコープが不正です.スコープ:{0}|
-|com.epion_t3.basic.err.9002|指定パターンに合致する文字列が含まれていません.指定パターン:{0}|
-|com.epion_t3.basic.err.9003|値（value）は必須です.|
-|com.epion_t3.basic.err.9004|値（value）は数値で指定してください.|
-|com.epion_t3.basic.err.9005|対象（target）は必須です.|
-|com.epion_t3.basic.err.9006|ユーザー入力にてエラーが発生しました.|
-|com.epion_t3.basic.err.9007|対象のファイルが見つかりません.パス：{0}|
+|com.zomu.t.epion.t3.rdb.err.0010|DataSetのインポートに失敗しました.|
+|com.zomu.t.epion.t3.rdb.err.0011|RDBアクセスに失敗したため、DataSetのエクスポートに失敗しました.|
+|com.zomu.t.epion.t3.rdb.err.0020|指定できるQueryは1つです。複数のクエリーを指定しないでください。|
+|com.zomu.t.epion.t3.rdb.err.0003|Scriptのパスが指定されていません.|
+|com.zomu.t.epion.t3.rdb.err.0014|RDBへの接続先定義のRDB種別が不正です.対応するRDBの値を設定してください.RDB種別：{0}|
+|com.zomu.t.epion.t3.rdb.err.0004|Scriptのパスが存在しません.パス：{0}|
+|com.zomu.t.epion.t3.rdb.err.0015|RDBへのコネクションの確率に失敗しました.|
+|com.zomu.t.epion.t3.rdb.err.0001|Queryが指定されていません.|
+|com.zomu.t.epion.t3.rdb.err.0012|RDBへの接続先定義は必須です.|
+|com.zomu.t.epion.t3.rdb.err.0002|Queryの実行時にエラーが発生しました.|
+|com.zomu.t.epion.t3.rdb.err.0013|RDBへの接続先定義のRDB種別は必須です.|
+|com.zomu.t.epion.t3.rdb.err.0007|DataSetの種別が解決できません.種別：{0}|
+|com.zomu.t.epion.t3.rdb.err.0018|結果値を参照するためのFlowIDが指定されていません.|
+|com.zomu.t.epion.t3.rdb.err.0008|CSVによるDataSetには現状対応していません.|
+|com.zomu.t.epion.t3.rdb.err.0019|カラムの型が解決できません.テーブル：{0},カラム：{1}|
+|com.zomu.t.epion.t3.rdb.err.0005|DataSetのパスが指定されていません.|
+|com.zomu.t.epion.t3.rdb.err.0016|DataSetの読み込みに失敗しました.パス：{0}|
+|com.zomu.t.epion.t3.rdb.err.0006|DataSetのパスが存在しません.パス：{0}|
+|com.zomu.t.epion.t3.rdb.err.0017|期待値のDataSetのパスが指定されていません.|
+|com.zomu.t.epion.t3.rdb.err.0009|インポート用のオペレーションではありません.オペレーション：{0}|

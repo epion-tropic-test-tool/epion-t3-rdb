@@ -6,7 +6,7 @@ import com.epion_t3.core.command.runner.impl.AbstractCommandRunner;
 import com.epion_t3.core.exception.SystemException;
 import com.epion_t3.rdb.command.model.ExecuteRdbScript;
 import com.epion_t3.rdb.configuration.model.RdbConnectionConfiguration;
-import com.epion_t3.rdb.message.RdbMessages;
+import com.epion_t3.rdb.messages.RdbMessages;
 import com.epion_t3.rdb.util.RdbAccessUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -37,7 +37,7 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
 
         // 接続先は必須
         if (StringUtils.isEmpty(command.getRdbConnectConfigRef())) {
-            throw new SystemException(RdbMessages.RDB_ERR_0002);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0002);
         }
 
         // 接続先設定を参照
@@ -48,7 +48,7 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
 
         // クエリーは必須
         if (StringUtils.isEmpty(script)) {
-            throw new SystemException(RdbMessages.RDB_ERR_0003);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0003);
         }
 
         // スクリプトパスを解決
@@ -56,7 +56,7 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
 
         // スクリプトパスが存在しなかった場合はエラー
         if (Files.notExists(scriptPath)) {
-            throw new SystemException(RdbMessages.RDB_ERR_0004, scriptPath.toString());
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0004, scriptPath.toString());
         }
 
         // スクリプトの内容を読み込み
@@ -83,7 +83,7 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
                 }
             }
         } catch (SQLException e) {
-            throw new SystemException(RdbMessages.RDB_ERR_0002, e);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0002, e);
         }
 
         return CommandResult.getSuccess();

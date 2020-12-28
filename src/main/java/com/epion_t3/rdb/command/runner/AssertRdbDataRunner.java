@@ -7,7 +7,7 @@ import com.epion_t3.core.exception.SystemException;
 import com.epion_t3.core.common.type.AssertStatus;
 import com.epion_t3.rdb.bean.*;
 import com.epion_t3.rdb.command.model.AssertRdbData;
-import com.epion_t3.rdb.message.RdbMessages;
+import com.epion_t3.rdb.messages.RdbMessages;
 import com.epion_t3.rdb.type.DataSetType;
 import com.epion_t3.rdb.util.DataSetUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -219,7 +219,8 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 
                     } else {
                         // カラムの型が解決できない場合はエラー
-                        throw new SystemException(RdbMessages.RDB_ERR_0019, assertTargetTable.getTable(), column);
+                        throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0019,
+                                assertTargetTable.getTable(), column);
                     }
                 }
 
@@ -257,7 +258,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 
         // DataSetの配置パスは必須
         if (StringUtils.isEmpty(dataSet)) {
-            throw new SystemException(RdbMessages.RDB_ERR_0005);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0005);
         }
 
         // DataSetの配置パスを解決
@@ -265,7 +266,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 
         // DataSetの配置パスが存在しなかった場合はエラー
         if (Files.notExists(dataSetPath)) {
-            throw new SystemException(RdbMessages.RDB_ERR_0006, dataSetPath.toString());
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0006, dataSetPath.toString());
         }
 
         // データセット種別
@@ -273,7 +274,8 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 
         // データセット種別が解決できなかった場合はエラー
         if (dataSetType == null) {
-            throw new SystemException(RdbMessages.RDB_ERR_0007, command.getExpectedDataSetType());
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0007,
+                    command.getExpectedDataSetType());
         }
 
         // データセット読み込み
@@ -295,7 +297,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 
         // DataSetの配置パスは必須
         if (StringUtils.isEmpty(flowId)) {
-            throw new SystemException(RdbMessages.RDB_ERR_0018);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0018);
         }
 
         // 結果値DataSetの配置パスを解決
@@ -303,7 +305,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 
         // DataSetの配置パスが存在しなかった場合はエラー
         if (Files.notExists(dataSetPath)) {
-            throw new SystemException(RdbMessages.RDB_ERR_0006, dataSetPath.toString());
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0006, dataSetPath.toString());
         }
 
         // データセット種別
@@ -311,7 +313,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 
         // データセット種別が解決できなかった場合はエラー
         if (dataSetType == null) {
-            throw new SystemException(RdbMessages.RDB_ERR_0007, command.getActualDataSetType());
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0007, command.getActualDataSetType());
         }
 
         // データセット読み込み

@@ -7,7 +7,7 @@ import com.epion_t3.core.exception.SystemException;
 import com.epion_t3.rdb.bean.TargetTable;
 import com.epion_t3.rdb.command.model.ExportRdbData;
 import com.epion_t3.rdb.configuration.model.RdbConnectionConfiguration;
-import com.epion_t3.rdb.message.RdbMessages;
+import com.epion_t3.rdb.messages.RdbMessages;
 import com.epion_t3.rdb.type.DataSetType;
 import com.epion_t3.rdb.util.RdbAccessUtils;
 import com.epion_t3.rdb.writer.XlsxDataSetWriter;
@@ -49,7 +49,7 @@ public class AssertRdbDataRunner2 extends AbstractCommandRunner<ExportRdbData> {
 
         // データセット種別が解決できなかった場合はエラー
         if (dataSetType == null) {
-            throw new SystemException(RdbMessages.RDB_ERR_0007, command.getDataSetType());
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0007, command.getDataSetType());
         }
 
         // データセット読み込み
@@ -79,7 +79,7 @@ public class AssertRdbDataRunner2 extends AbstractCommandRunner<ExportRdbData> {
                 // TODO
                 // iDataSet = new CsvDataSet(dataSetPath.toFile());
                 // break;
-                throw new SystemException(RdbMessages.RDB_ERR_0008);
+                throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0008);
             case XML:
                 Path flatXmlPath = getEvidencePath("export.xml");
                 try (OutputStream os = new FileOutputStream(flatXmlPath.toFile())) {
@@ -102,7 +102,7 @@ public class AssertRdbDataRunner2 extends AbstractCommandRunner<ExportRdbData> {
             }
         } catch (SQLException | DatabaseUnitException e) {
             log.debug("Error Occurred...", e);
-            throw new SystemException(e, RdbMessages.RDB_ERR_0011);
+            throw new SystemException(e, RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0011);
         } finally {
             if (conn != null) {
                 try {

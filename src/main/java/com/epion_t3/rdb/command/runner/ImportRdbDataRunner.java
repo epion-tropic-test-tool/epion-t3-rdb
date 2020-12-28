@@ -6,7 +6,7 @@ import com.epion_t3.core.command.runner.impl.AbstractCommandRunner;
 import com.epion_t3.core.exception.SystemException;
 import com.epion_t3.rdb.command.model.ImportRdbData;
 import com.epion_t3.rdb.configuration.model.RdbConnectionConfiguration;
-import com.epion_t3.rdb.message.RdbMessages;
+import com.epion_t3.rdb.messages.RdbMessages;
 import com.epion_t3.rdb.type.DataSetType;
 import com.epion_t3.rdb.type.OperationType;
 import com.epion_t3.rdb.util.DataSetUtils;
@@ -47,7 +47,7 @@ public class ImportRdbDataRunner extends AbstractCommandRunner<ImportRdbData> {
 
         // DataSetの配置パスは必須
         if (StringUtils.isEmpty(dataSet)) {
-            throw new SystemException(RdbMessages.RDB_ERR_0005);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0005);
         }
 
         // DataSetの配置パスを解決
@@ -55,7 +55,7 @@ public class ImportRdbDataRunner extends AbstractCommandRunner<ImportRdbData> {
 
         // DataSetの配置パスが存在しなかった場合はエラー
         if (Files.notExists(dataSetPath)) {
-            throw new SystemException(RdbMessages.RDB_ERR_0006, dataSetPath.toString());
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0006, dataSetPath.toString());
         }
 
         // データセット種別
@@ -63,7 +63,7 @@ public class ImportRdbDataRunner extends AbstractCommandRunner<ImportRdbData> {
 
         // データセット種別が解決できなかった場合はエラー
         if (dataSetType == null) {
-            throw new SystemException(RdbMessages.RDB_ERR_0007, command.getDataSetType());
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0007, command.getDataSetType());
         }
 
         // データセット読み込み
@@ -118,7 +118,7 @@ public class ImportRdbDataRunner extends AbstractCommandRunner<ImportRdbData> {
 
             } catch (SQLException | DatabaseUnitException e) {
                 log.debug("Error Occurred...", e);
-                throw new SystemException(e, RdbMessages.RDB_ERR_0010);
+                throw new SystemException(e, RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0010);
             } finally {
                 if (conn != null) {
                     try {
@@ -132,7 +132,7 @@ public class ImportRdbDataRunner extends AbstractCommandRunner<ImportRdbData> {
             break;
         default:
             // データインポートとは関係のないオペレーションのためエラー
-            throw new SystemException(RdbMessages.RDB_ERR_0009, operationType.getValue());
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0009, operationType.getValue());
         }
 
         return CommandResult.getSuccess();

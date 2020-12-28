@@ -179,6 +179,10 @@ task devtoolsGenerate(type: JavaExec) {
             '-t',
             "${projectDir}/src/main/resources/et3_${customPackageName}_spec_config.yaml",
             '-d',
-            "${projectDir}"
+            "${projectDir}",
+            "-m",
+            "${projectDir}/src/main/resources",
+            "-j",
+            "${projectDir}/src/main/java/"
     ]
 }

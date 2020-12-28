@@ -6,7 +6,7 @@ import com.epion_t3.core.command.runner.impl.AbstractCommandRunner;
 import com.epion_t3.core.exception.SystemException;
 import com.epion_t3.rdb.command.model.ExecuteRdbQuery;
 import com.epion_t3.rdb.configuration.model.RdbConnectionConfiguration;
-import com.epion_t3.rdb.message.RdbMessages;
+import com.epion_t3.rdb.messages.RdbMessages;
 import com.epion_t3.rdb.util.RdbAccessUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +33,7 @@ public class ExecuteRdbQueryRunner extends AbstractCommandRunner<ExecuteRdbQuery
 
         // 接続先は必須
         if (StringUtils.isEmpty(command.getRdbConnectConfigRef())) {
-            throw new SystemException(RdbMessages.RDB_ERR_0002);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0002);
         }
 
         // 接続先設定を参照
@@ -44,7 +44,7 @@ public class ExecuteRdbQueryRunner extends AbstractCommandRunner<ExecuteRdbQuery
 
         // クエリーは必須
         if (StringUtils.isEmpty(query)) {
-            throw new SystemException(RdbMessages.RDB_ERR_0001);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0001);
         }
 
         // 複数行の場合は、セミコロンで区切られている
@@ -63,7 +63,7 @@ public class ExecuteRdbQueryRunner extends AbstractCommandRunner<ExecuteRdbQuery
                 }
             }
         } catch (SQLException e) {
-            throw new SystemException(RdbMessages.RDB_ERR_0002, e);
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0002, e);
         }
 
         return CommandResult.getSuccess();

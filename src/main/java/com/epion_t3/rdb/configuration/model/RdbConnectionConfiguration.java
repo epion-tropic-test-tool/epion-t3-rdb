@@ -49,7 +49,7 @@ public class RdbConnectionConfiguration extends Configuration {
     /**
      * データベース名.
      * 
-     * @since 0.0.3
+     * @since 0.0.4
      */
     private String dbName;
 

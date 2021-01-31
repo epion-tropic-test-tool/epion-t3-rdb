@@ -11,7 +11,7 @@ import org.apache.bval.constraints.NotEmpty;
 /**
  * RDBに対してクエリーを実行して値を保持するコマンド処理. 1レコード1カラムのみの取得という制限があるコマンド.
  *
- * @since 0.0.3
+ * @since 0.0.4
  * @author takashno
  */
 @Getter

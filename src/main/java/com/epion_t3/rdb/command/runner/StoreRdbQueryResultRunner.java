@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
  * RDBに対してクエリーを実行して値を保持するコマンド実行処理.
  *
  * @author takashno
- * @since 0.0.3
+ * @since 0.0.4
  */
 @Slf4j
 public class StoreRdbQueryResultRunner extends AbstractCommandRunner<StoreRdbQueryResult> {

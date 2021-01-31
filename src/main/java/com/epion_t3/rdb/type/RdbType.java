@@ -32,7 +32,7 @@ public enum RdbType {
     /**
      * Snowflake.
      * 
-     * @since 0.0.3
+     * @since 0.0.4
      */
     SNOWFLAKE("snowflake");
 

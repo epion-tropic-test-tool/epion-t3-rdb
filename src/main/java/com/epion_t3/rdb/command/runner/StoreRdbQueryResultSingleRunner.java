@@ -25,7 +25,7 @@ import java.util.LinkedHashMap;
  * RDBに対してクエリーを実行して値を保持するコマンド実行処理. 1レコード1カラムのみの取得という制限があるコマンド.
  *
  * @author takashno
- * @since 0.0.3
+ * @since 0.0.4
  */
 @Slf4j
 public class StoreRdbQueryResultSingleRunner extends AbstractCommandRunner<StoreRdbQueryResultSingle> {

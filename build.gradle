@@ -14,7 +14,7 @@ ext {
     // バージョン定義
     versionMajor = 0
     versionMinor = 0
-    versionPatch = 3
+    versionPatch = 4
 
     // アーティファクト関連
     group 'com.epion_t3'
@@ -45,7 +45,7 @@ configurations {
 dependencies {
 
     // Core Library
-    api group: 'com.epion_t3', name: 'epion-t3-core', version: '0.0.1'
+    api 'com.epion_t3:epion-t3-core:0.0.4'
 
     // Add Library
     implementation 'org.dbunit:dbunit:2.6.0'

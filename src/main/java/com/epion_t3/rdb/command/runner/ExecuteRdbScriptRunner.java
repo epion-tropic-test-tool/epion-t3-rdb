@@ -83,7 +83,7 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
                 }
             }
         } catch (SQLException e) {
-            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0002, e);
+            throw new SystemException(e, RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0002);
         }
 
         return CommandResult.getSuccess();

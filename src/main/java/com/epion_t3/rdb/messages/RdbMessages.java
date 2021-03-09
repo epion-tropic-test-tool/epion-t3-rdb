@@ -13,22 +13,22 @@ public enum RdbMessages implements Messages {
     /** DataSetのインポートに失敗しました. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0010("com.zomu.t.epion.t3.rdb.err.0010"),
 
-    /** 1カラムのみを取得するクエリーを指定してください。 */
+    /** 1カラムのみを取得するクエリーを指定してください. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0021("com.zomu.t.epion.t3.rdb.err.0021"),
 
     /** RDBアクセスに失敗したため、DataSetのエクスポートに失敗しました. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0011("com.zomu.t.epion.t3.rdb.err.0011"),
 
-    /** 1レコードのみを取得するクエリーを指定してください。 */
+    /** 1レコードのみを取得するクエリーを指定してください. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0022("com.zomu.t.epion.t3.rdb.err.0022"),
 
-    /** 指定できるQueryは1つです。複数のクエリーを指定しないでください。 */
+    /** 指定できるQueryは1つです.複数のクエリーを指定しないでください. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0020("com.zomu.t.epion.t3.rdb.err.0020"),
 
     /** Scriptのパスが指定されていません. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0003("com.zomu.t.epion.t3.rdb.err.0003"),
 
-    /** RDBへの接続先定義のRDB種別が不正です.対応するRDBの値を設定してください.RDB種別：{0} */
+    /** RDBへの接続先定義のRDB種別が不正です.対応するRDBの値を設定してください.RDB種別 : {0} */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0014("com.zomu.t.epion.t3.rdb.err.0014"),
 
     /** Scriptのパスが存在しません.パス：{0} */
@@ -42,6 +42,9 @@ public enum RdbMessages implements Messages {
 
     /** RDBへの接続先定義は必須です. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0012("com.zomu.t.epion.t3.rdb.err.0012"),
+
+    /** 指定されたスクリプトは空です. スクリプト : {0} */
+    RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0023("com.zomu.t.epion.t3.rdb.err.0023"),
 
     /** Queryの実行時にエラーが発生しました. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0002("com.zomu.t.epion.t3.rdb.err.0002"),
@@ -58,13 +61,13 @@ public enum RdbMessages implements Messages {
     /** CSVによるDataSetには現状対応していません. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0008("com.zomu.t.epion.t3.rdb.err.0008"),
 
-    /** カラムの型が解決できません.テーブル：{0},カラム：{1} */
+    /** カラムの型が解決できません.テーブル : {0},カラム : {1} */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0019("com.zomu.t.epion.t3.rdb.err.0019"),
 
     /** DataSetのパスが指定されていません. */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0005("com.zomu.t.epion.t3.rdb.err.0005"),
 
-    /** DataSetの読み込みに失敗しました.パス：{0} */
+    /** DataSetの読み込みに失敗しました.パス : {0} */
     RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0016("com.zomu.t.epion.t3.rdb.err.0016"),
 
     /** DataSetのパスが存在しません.パス：{0} */

@@ -44,7 +44,7 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
         RdbConnectionConfiguration rdbConnectionConfiguration = referConfiguration(command.getRdbConnectConfigRef());
 
         // スクリプトパスを取得
-        String script = command.getValue();
+        var script = command.getValue();
 
         // クエリーは必須
         if (StringUtils.isEmpty(script)) {
@@ -52,7 +52,7 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
         }
 
         // スクリプトパスを解決
-        Path scriptPath = Paths.get(getCommandBelongScenarioDirectory(), script);
+        var scriptPath = Paths.get(getCommandBelongScenarioDirectory(), script);
 
         // スクリプトパスが存在しなかった場合はエラー
         if (Files.notExists(scriptPath)) {
@@ -60,7 +60,12 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
         }
 
         // スクリプトの内容を読み込み
-        String scriptContents = new String(Files.readAllBytes(scriptPath), Charset.forName("UTF-8"));
+        var scriptContents = new String(Files.readAllBytes(scriptPath), Charset.forName("UTF-8"));
+
+        // スクリプトを読み込んだ結果空出会った場合はエラー（想定外の挙動である可能性が高いため）
+        if (StringUtils.isEmpty(scriptContents)) {
+            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0023, scriptPath.toString());
+        }
 
         // スクリプトの内容に対してバインド処理
         // クエリーの場合は直接YAMLに記載されるためバインドは前段で行われているが、

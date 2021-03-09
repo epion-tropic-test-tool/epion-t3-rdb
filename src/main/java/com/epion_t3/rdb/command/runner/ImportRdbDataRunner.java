@@ -17,11 +17,8 @@ import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ReplacementDataSet;
-import org.dbunit.dataset.excel.XlsDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.slf4j.Logger;
 
-import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;

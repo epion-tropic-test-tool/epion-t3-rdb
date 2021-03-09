@@ -4,7 +4,6 @@ package com.epion_t3.rdb.command.runner;
 import com.epion_t3.core.command.bean.CommandResult;
 import com.epion_t3.core.command.runner.impl.AbstractCommandRunner;
 import com.epion_t3.core.exception.SystemException;
-import com.epion_t3.rdb.command.model.StoreRdbQueryResult;
 import com.epion_t3.rdb.command.model.StoreRdbQueryResultSingle;
 import com.epion_t3.rdb.configuration.model.RdbConnectionConfiguration;
 import com.epion_t3.rdb.messages.RdbMessages;
@@ -14,12 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
-import org.dbunit.dataset.Column;
 import org.slf4j.Logger;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 /**
  * RDBに対してクエリーを実行して値を保持するコマンド実行処理. 1レコード1カラムのみの取得という制限があるコマンド.

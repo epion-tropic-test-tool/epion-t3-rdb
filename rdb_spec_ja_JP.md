@@ -286,24 +286,25 @@ commands :
 |MessageID|MessageContents|
 |:---|:---|
 |com.zomu.t.epion.t3.rdb.err.0010|DataSetのインポートに失敗しました.|
-|com.zomu.t.epion.t3.rdb.err.0021|1カラムのみを取得するクエリーを指定してください。|
+|com.zomu.t.epion.t3.rdb.err.0021|1カラムのみを取得するクエリーを指定してください.|
 |com.zomu.t.epion.t3.rdb.err.0011|RDBアクセスに失敗したため、DataSetのエクスポートに失敗しました.|
-|com.zomu.t.epion.t3.rdb.err.0022|1レコードのみを取得するクエリーを指定してください。|
-|com.zomu.t.epion.t3.rdb.err.0020|指定できるQueryは1つです。複数のクエリーを指定しないでください。|
+|com.zomu.t.epion.t3.rdb.err.0022|1レコードのみを取得するクエリーを指定してください.|
+|com.zomu.t.epion.t3.rdb.err.0020|指定できるQueryは1つです.複数のクエリーを指定しないでください.|
 |com.zomu.t.epion.t3.rdb.err.0003|Scriptのパスが指定されていません.|
-|com.zomu.t.epion.t3.rdb.err.0014|RDBへの接続先定義のRDB種別が不正です.対応するRDBの値を設定してください.RDB種別：{0}|
+|com.zomu.t.epion.t3.rdb.err.0014|RDBへの接続先定義のRDB種別が不正です.対応するRDBの値を設定してください.RDB種別 : {0}|
 |com.zomu.t.epion.t3.rdb.err.0004|Scriptのパスが存在しません.パス：{0}|
 |com.zomu.t.epion.t3.rdb.err.0015|RDBへのコネクションの確率に失敗しました.|
 |com.zomu.t.epion.t3.rdb.err.0001|Queryが指定されていません.|
 |com.zomu.t.epion.t3.rdb.err.0012|RDBへの接続先定義は必須です.|
+|com.zomu.t.epion.t3.rdb.err.0023|指定されたスクリプトは空です. スクリプト : {0}|
 |com.zomu.t.epion.t3.rdb.err.0002|Queryの実行時にエラーが発生しました.|
 |com.zomu.t.epion.t3.rdb.err.0013|RDBへの接続先定義のRDB種別は必須です.|
 |com.zomu.t.epion.t3.rdb.err.0007|DataSetの種別が解決できません.種別：{0}|
 |com.zomu.t.epion.t3.rdb.err.0018|結果値を参照するためのFlowIDが指定されていません.|
 |com.zomu.t.epion.t3.rdb.err.0008|CSVによるDataSetには現状対応していません.|
-|com.zomu.t.epion.t3.rdb.err.0019|カラムの型が解決できません.テーブル：{0},カラム：{1}|
+|com.zomu.t.epion.t3.rdb.err.0019|カラムの型が解決できません.テーブル : {0},カラム : {1}|
 |com.zomu.t.epion.t3.rdb.err.0005|DataSetのパスが指定されていません.|
-|com.zomu.t.epion.t3.rdb.err.0016|DataSetの読み込みに失敗しました.パス：{0}|
+|com.zomu.t.epion.t3.rdb.err.0016|DataSetの読み込みに失敗しました.パス : {0}|
 |com.zomu.t.epion.t3.rdb.err.0006|DataSetのパスが存在しません.パス：{0}|
 |com.zomu.t.epion.t3.rdb.err.0017|期待値のDataSetのパスが指定されていません.|
 |com.zomu.t.epion.t3.rdb.err.0009|インポート用のオペレーションではありません.オペレーション：{0}|

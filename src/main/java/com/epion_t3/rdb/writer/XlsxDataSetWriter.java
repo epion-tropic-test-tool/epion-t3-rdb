@@ -1,16 +1,15 @@
 /* Copyright (c) 2017-2021 Nozomu Takashima. */
 package com.epion_t3.rdb.writer;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.dbunit.dataset.excel.XlsDataSetWriter;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * DBUnitのExcel出力クラスの拡張版<br>

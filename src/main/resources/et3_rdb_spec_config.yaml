@@ -800,7 +800,7 @@ messages:
   - id: com.zomu.t.epion.t3.rdb.err.0014
     message:
       - lang: ja_JP
-        contents: "RDBへの接続先定義のRDB種別が不正です.対応するRDBの値を設定してください.RDB種別：{0}"
+        contents: "RDBへの接続先定義のRDB種別が不正です.対応するRDBの値を設定してください.RDB種別 : {0}"
   - id: com.zomu.t.epion.t3.rdb.err.0015
     message:
       - lang: ja_JP
@@ -808,7 +808,7 @@ messages:
   - id: com.zomu.t.epion.t3.rdb.err.0016
     message:
       - lang: ja_JP
-        contents: "DataSetの読み込みに失敗しました.パス：{0}"
+        contents: "DataSetの読み込みに失敗しました.パス : {0}"
   - id: com.zomu.t.epion.t3.rdb.err.0017
     message:
       - lang: ja_JP
@@ -820,16 +820,20 @@ messages:
   - id: com.zomu.t.epion.t3.rdb.err.0019
     message:
       - lang: ja_JP
-        contents: "カラムの型が解決できません.テーブル：{0},カラム：{1}"
+        contents: "カラムの型が解決できません.テーブル : {0},カラム : {1}"
   - id: com.zomu.t.epion.t3.rdb.err.0020
     message:
       - lang: ja_JP
-        contents: "指定できるQueryは1つです。複数のクエリーを指定しないでください。"
+        contents: "指定できるQueryは1つです.複数のクエリーを指定しないでください."
   - id: com.zomu.t.epion.t3.rdb.err.0021
     message:
       - lang: ja_JP
-        contents: "1カラムのみを取得するクエリーを指定してください。"
+        contents: "1カラムのみを取得するクエリーを指定してください."
   - id: com.zomu.t.epion.t3.rdb.err.0022
     message:
       - lang: ja_JP
-        contents: "1レコードのみを取得するクエリーを指定してください。"
+        contents: "1レコードのみを取得するクエリーを指定してください."
+  - id: com.zomu.t.epion.t3.rdb.err.0023
+    message:
+      - lang: ja_JP
+        contents: "指定されたスクリプトは空です. スクリプト : {0}"

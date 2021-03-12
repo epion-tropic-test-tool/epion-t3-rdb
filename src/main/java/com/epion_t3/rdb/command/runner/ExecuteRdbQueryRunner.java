@@ -33,7 +33,7 @@ public class ExecuteRdbQueryRunner extends AbstractCommandRunner<ExecuteRdbQuery
 
         // 接続先は必須
         if (StringUtils.isEmpty(command.getRdbConnectConfigRef())) {
-            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0002);
+            throw new SystemException(RdbMessages.RDB_ERR_0002);
         }
 
         // 接続先設定を参照
@@ -44,7 +44,7 @@ public class ExecuteRdbQueryRunner extends AbstractCommandRunner<ExecuteRdbQuery
 
         // クエリーは必須
         if (StringUtils.isEmpty(query)) {
-            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0001);
+            throw new SystemException(RdbMessages.RDB_ERR_0001);
         }
 
         // 複数行の場合は、セミコロンで区切られている
@@ -63,7 +63,7 @@ public class ExecuteRdbQueryRunner extends AbstractCommandRunner<ExecuteRdbQuery
                 }
             }
         } catch (SQLException e) {
-            throw new SystemException(e, RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0002);
+            throw new SystemException(e, RdbMessages.RDB_ERR_0002);
         }
 
         return CommandResult.getSuccess();

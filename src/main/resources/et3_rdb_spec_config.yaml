@@ -745,95 +745,107 @@ commands:
 # メッセージ定義
 #####################################
 messages:
-  - id: com.zomu.t.epion.t3.rdb.err.0001
+  - id: com.epion_t3.rdb.err.0001
     message:
       - lang: ja_JP
         contents: "Queryが指定されていません."
-  - id: com.zomu.t.epion.t3.rdb.err.0002
+  - id: com.epion_t3.rdb.err.0002
     message:
       - lang: ja_JP
         contents: "Queryの実行時にエラーが発生しました."
-  - id: com.zomu.t.epion.t3.rdb.err.0003
+  - id: com.epion_t3.rdb.err.0003
     message:
       - lang: ja_JP
         contents: "Scriptのパスが指定されていません."
-  - id: com.zomu.t.epion.t3.rdb.err.0004
+  - id: com.epion_t3.rdb.err.0004
     message:
       - lang: ja_JP
         contents: "Scriptのパスが存在しません.パス：{0}"
-  - id: com.zomu.t.epion.t3.rdb.err.0005
+  - id: com.epion_t3.rdb.err.0005
     message:
       - lang: ja_JP
         contents: "DataSetのパスが指定されていません."
-  - id: com.zomu.t.epion.t3.rdb.err.0006
+  - id: com.epion_t3.rdb.err.0006
     message:
       - lang: ja_JP
         contents: "DataSetのパスが存在しません.パス：{0}"
-  - id: com.zomu.t.epion.t3.rdb.err.0007
+  - id: com.epion_t3.rdb.err.0007
     message:
       - lang: ja_JP
         contents: "DataSetの種別が解決できません.種別：{0}"
-  - id: com.zomu.t.epion.t3.rdb.err.0008
+  - id: com.epion_t3.rdb.err.0008
     message:
       - lang: ja_JP
         contents: "CSVによるDataSetには現状対応していません."
-  - id: com.zomu.t.epion.t3.rdb.err.0009
+  - id: com.epion_t3.rdb.err.0009
     message:
       - lang: ja_JP
         contents: "インポート用のオペレーションではありません.オペレーション：{0}"
-  - id: com.zomu.t.epion.t3.rdb.err.0010
+  - id: com.epion_t3.rdb.err.0010
     message:
       - lang: ja_JP
         contents: "DataSetのインポートに失敗しました."
-  - id: com.zomu.t.epion.t3.rdb.err.0011
+  - id: com.epion_t3.rdb.err.0011
     message:
       - lang: ja_JP
         contents: "RDBアクセスに失敗したため、DataSetのエクスポートに失敗しました."
-  - id: com.zomu.t.epion.t3.rdb.err.0012
+  - id: com.epion_t3.rdb.err.0012
     message:
       - lang: ja_JP
         contents: "RDBへの接続先定義は必須です."
-  - id: com.zomu.t.epion.t3.rdb.err.0013
+  - id: com.epion_t3.rdb.err.0013
     message:
       - lang: ja_JP
         contents: "RDBへの接続先定義のRDB種別は必須です."
-  - id: com.zomu.t.epion.t3.rdb.err.0014
+  - id: com.epion_t3.rdb.err.0014
     message:
       - lang: ja_JP
         contents: "RDBへの接続先定義のRDB種別が不正です.対応するRDBの値を設定してください.RDB種別 : {0}"
-  - id: com.zomu.t.epion.t3.rdb.err.0015
+  - id: com.epion_t3.rdb.err.0015
     message:
       - lang: ja_JP
         contents: "RDBへのコネクションの確率に失敗しました."
-  - id: com.zomu.t.epion.t3.rdb.err.0016
+  - id: com.epion_t3.rdb.err.0016
     message:
       - lang: ja_JP
         contents: "DataSetの読み込みに失敗しました.パス : {0}"
-  - id: com.zomu.t.epion.t3.rdb.err.0017
+  - id: com.epion_t3.rdb.err.0017
     message:
       - lang: ja_JP
         contents: "期待値のDataSetのパスが指定されていません."
-  - id: com.zomu.t.epion.t3.rdb.err.0018
+  - id: com.epion_t3.rdb.err.0018
     message:
       - lang: ja_JP
         contents: "結果値を参照するためのFlowIDが指定されていません."
-  - id: com.zomu.t.epion.t3.rdb.err.0019
+  - id: com.epion_t3.rdb.err.0019
     message:
       - lang: ja_JP
         contents: "カラムの型が解決できません.テーブル : {0},カラム : {1}"
-  - id: com.zomu.t.epion.t3.rdb.err.0020
+  - id: com.epion_t3.rdb.err.0020
     message:
       - lang: ja_JP
         contents: "指定できるQueryは1つです.複数のクエリーを指定しないでください."
-  - id: com.zomu.t.epion.t3.rdb.err.0021
+  - id: com.epion_t3.rdb.err.0021
     message:
       - lang: ja_JP
         contents: "1カラムのみを取得するクエリーを指定してください."
-  - id: com.zomu.t.epion.t3.rdb.err.0022
+  - id: com.epion_t3.rdb.err.0022
     message:
       - lang: ja_JP
         contents: "1レコードのみを取得するクエリーを指定してください."
-  - id: com.zomu.t.epion.t3.rdb.err.0023
+  - id: com.epion_t3.rdb.err.0023
     message:
       - lang: ja_JP
         contents: "指定されたスクリプトは空です. スクリプト : {0}"
+  - id: com.epion_t3.rdb.err.0024
+    message:
+      - lang: ja_JP
+        contents: "テーブルの設定ファイルは「yaml」「yml」「json」のいずれかで指定して下さい. テーブル設定ファイル : {0}"
+  - id: com.epion_t3.rdb.err.0025
+    message:
+      - lang: ja_JP
+        contents: "テーブルの設定ファイルが見つかりません. テーブル設定ファイル : {0}"
+  - id: com.epion_t3.rdb.err.0026
+    message:
+      - lang: ja_JP
+        contents: "未対応のDataSetの種別です. 種別 : {0}"

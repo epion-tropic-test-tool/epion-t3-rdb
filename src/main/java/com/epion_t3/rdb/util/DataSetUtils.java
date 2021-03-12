@@ -48,7 +48,7 @@ public final class DataSetUtils {
 
         // データセット種別が解決できなかった場合はエラー
         if (dataSetType == null) {
-            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0007, dataSetType);
+            throw new SystemException(RdbMessages.RDB_ERR_0007, dataSetType);
         }
 
         // データセット読み込み
@@ -60,7 +60,7 @@ public final class DataSetUtils {
                 // TODO
                 // iDataSet = new CsvDataSet(dataSetPath.toFile());
                 // break;
-                throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0008);
+                throw new SystemException(RdbMessages.RDB_ERR_0008);
             case XML:
                 iDataSet = new XmlDataSet(fis);
                 break;
@@ -75,11 +75,11 @@ public final class DataSetUtils {
                 break;
             default:
                 // ありえない
-                throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0007, dataSetType);
+                throw new SystemException(RdbMessages.RDB_ERR_0007, dataSetType);
             }
             return iDataSet;
         } catch (IOException | DataSetException e) {
-            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0016, path.toString());
+            throw new SystemException(RdbMessages.RDB_ERR_0016, path.toString());
         }
     }
 

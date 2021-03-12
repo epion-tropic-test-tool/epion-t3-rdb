@@ -38,4 +38,9 @@ public class ExportRdbData extends Command {
      */
     private List<TargetTable> tables;
 
+    /**
+     * テーブル設定ファイルパス.
+     */
+    private String tablesConfigPath;
+
 }

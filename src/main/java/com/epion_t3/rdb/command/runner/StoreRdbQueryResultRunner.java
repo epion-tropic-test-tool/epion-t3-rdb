@@ -40,14 +40,14 @@ public class StoreRdbQueryResultRunner extends AbstractCommandRunner<StoreRdbQue
 
         // クエリーは必須
         if (StringUtils.isEmpty(query)) {
-            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0001);
+            throw new SystemException(RdbMessages.RDB_ERR_0001);
         }
 
         // 複数行の場合は、セミコロンで区切られている
         String[] queries = query.split(";");
 
         if (queries.length > 1) {
-            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0020);
+            throw new SystemException(RdbMessages.RDB_ERR_0020);
         }
 
         // 接続先設定を参照
@@ -83,7 +83,7 @@ public class StoreRdbQueryResultRunner extends AbstractCommandRunner<StoreRdbQue
             setVariable(command.getTarget(), queryResultList);
         } catch (DatabaseUnitException e) {
             log.debug("Error Occurred...", e);
-            throw new SystemException(e, RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0011);
+            throw new SystemException(e, RdbMessages.RDB_ERR_0011);
         } finally {
             if (conn != null) {
                 try {

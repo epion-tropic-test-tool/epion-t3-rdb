@@ -33,30 +33,31 @@ public class StoreRdbQueryResultSingleRunner extends AbstractCommandRunner<Store
     public CommandResult execute(StoreRdbQueryResultSingle command, Logger logger) throws Exception {
 
         // クエリー文字列を取得
-        String query = command.getValue();
+        var query = command.getValue();
 
         // クエリーは必須
         if (StringUtils.isEmpty(query)) {
-            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0001);
+            throw new SystemException(RdbMessages.RDB_ERR_0001);
         }
 
         // 複数行の場合は、セミコロンで区切られている
-        String[] queries = query.split(";");
+        var queries = query.split(";");
 
         if (queries.length > 1) {
-            throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0020);
+            throw new SystemException(RdbMessages.RDB_ERR_0020);
         }
 
         // 接続先設定を参照
-        RdbConnectionConfiguration rdbConnectionConfiguration = referConfiguration(command.getRdbConnectConfigRef());
+        var rdbConnectionConfiguration = referConfiguration(command.getRdbConnectConfigRef());
 
         // データセット読み込み
-        QueryDataSet iDataSet = null;
+        var iDataSet = (QueryDataSet) null;
 
-        IDatabaseConnection conn = null;
+        var conn = (IDatabaseConnection) null;
         try {
             // コネクションを取得
-            conn = RdbAccessUtils.getInstance().getDatabaseConnection(rdbConnectionConfiguration);
+            conn = RdbAccessUtils.getInstance()
+                    .getDatabaseConnection((RdbConnectionConfiguration) rdbConnectionConfiguration);
 
             // クエリーデータセットを作成
             iDataSet = new QueryDataSet(conn);
@@ -65,11 +66,11 @@ public class StoreRdbQueryResultSingleRunner extends AbstractCommandRunner<Store
             var metaData = iTable.getTableMetaData();
 
             if (metaData.getColumns().length > 1) {
-                throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0021);
+                throw new SystemException(RdbMessages.RDB_ERR_0021);
             }
 
             if (iTable.getRowCount() > 1) {
-                throw new SystemException(RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0022);
+                throw new SystemException(RdbMessages.RDB_ERR_0022);
             }
 
             var col = metaData.getColumns()[0];
@@ -79,7 +80,7 @@ public class StoreRdbQueryResultSingleRunner extends AbstractCommandRunner<Store
 
         } catch (DatabaseUnitException e) {
             log.debug("Error Occurred...", e);
-            throw new SystemException(e, RdbMessages.RDB_COM_ZOMU_T_EPION_T3_RDB_ERR_0011);
+            throw new SystemException(e, RdbMessages.RDB_ERR_0011);
         } finally {
             if (conn != null) {
                 try {

@@ -41,7 +41,7 @@ RDB（Relational DataBase）関連のコマンドを提供します。
 |[StoreRdbQueryResult](#StoreRdbQueryResult)|RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。  保持した結果は、レコード毎にjava.util.Listとして保持されます。  保持した結果のレコードは、Key：カラム名、値：カラム値となるMapとして保持されます。このMapは取得したカラムの順序も保持します。  |||
 |[ImportRdbData](#ImportRdbData)|RDBに対してデータの挿入（インポート）を行います。  ||X|
 |[ExecuteRdbScript](#ExecuteRdbScript)|RDBに対してスクリプト（SQL）を実行します。  |||
-|[AssertRdbData](#AssertRdbData)|RDBのレコードの確認を行います。  ||X|
+|[AssertRdbData](#AssertRdbData)|RDBのレコードの確認を行います。  |X||
 |[StoreRdbQueryResultSingle](#StoreRdbQueryResultSingle)|RDBに対してクエリー（SQL）を実行し、結果を変数として保持します。  変数に対してシンプルに値を格納することができます。  成約として、このコマンドの結果は1レコード1カラムとしてください。  |||
 |[ExecuteRdbQuery](#ExecuteRdbQuery)|RDBに対してクエリー（SQL）を実行します。  |||
 
@@ -68,12 +68,14 @@ commands :
   rdbConnectConfigRef : RDBに対する接続先定義の参照ID # (1)
   dataSetType : (xml|flatXml|excel) # (2)
   tables : エクスポート対象のテーブルを定義 # (3)
+  tablesConfigPath : テーブル設定ファイルのパスを指定します。# (4)
 
 ```
 
 1. RDBへの接続先の設定を行っている &#96;Configuration&#96; の参照IDを指定します。
 1. DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。
 1. エクスポートを行う対象のテーブルについて細かく指定が行えます。
+1. テーブル設定ファイルは、YAML or JSON で指定します。&#10;例：[&#10;  {&#10;    &quot;table&quot; : &quot;テーブル名&quot;,&#10;    &quot;query&quot; : &quot;クエリーを記載&quot;&#10;  }&#10;]&#10;
 ------
 
 ### StoreRdbQueryResult
@@ -166,8 +168,8 @@ commands :
 ### AssertRdbData
 RDBのレコードの確認を行います。
 #### Command Type
-- Assert : No
-- Evidence : __Yes__
+- Assert : __Yes__
+- Evidence : No
 
 #### Functions
 - RDBのレコードの確認を行います。
@@ -302,7 +304,7 @@ commands :
 |com.epion_t3.rdb.err.0003|Scriptのパスが指定されていません.|
 |com.epion_t3.rdb.err.0025|テーブルの設定ファイルが見つかりません. テーブル設定ファイル : {0}|
 |com.epion_t3.rdb.err.0004|Scriptのパスが存在しません.パス：{0}|
-|com.epion_t3.rdb.err.0026|未対応のデータセットです. 形式 : {0}|
+|com.epion_t3.rdb.err.0026|未対応のDataSetの種別です. 種別 : {0}|
 |com.epion_t3.rdb.err.0001|Queryが指定されていません.|
 |com.epion_t3.rdb.err.0023|指定されたスクリプトは空です. スクリプト : {0}|
 |com.epion_t3.rdb.err.0002|Queryの実行時にエラーが発生しました.|

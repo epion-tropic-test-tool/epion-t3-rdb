@@ -301,7 +301,7 @@ commands:
             contents: "DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。"
       - order: 7
         name: tables
-        required: true
+        required: false
         type: array
         summary:
           - lang: ja_JP
@@ -324,6 +324,23 @@ commands:
             summary:
               - lang: ja_JP
                 contents: "対象のテーブルからデータを抽出するためのクエリー（SQL）を指定"
+      - order: 8
+        name: tablesConfigPath
+        required: false
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "テーブル設定ファイルのパスを指定します。# (4)"
+        description:
+          - lang: ja_JP
+            contents: |
+              テーブル設定ファイルは、YAML or JSON で指定します。
+              例：[
+                {
+                  "table" : "テーブル名",
+                  "query" : "クエリーを記載"
+                }
+              ]
   ##########################
   # ExecuteRdbScript
   ##########################
@@ -466,7 +483,8 @@ commands:
   # AssertRdbData
   ##########################
   - id: AssertRdbData
-    evidenceCommand: true
+    evidenceCommand: false
+    assertCommand: true
     summary:
       - lang: ja_JP
         contents: "RDBのレコードの確認を行います。"

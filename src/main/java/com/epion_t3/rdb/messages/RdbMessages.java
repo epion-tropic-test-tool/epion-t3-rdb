@@ -61,7 +61,7 @@ public enum RdbMessages implements Messages {
     /** Scriptのパスが存在しません.パス：{0} */
     RDB_ERR_0004("com.epion_t3.rdb.err.0004"),
 
-    /** 未対応のデータセットです. 形式 : {0} */
+    /** 未対応のDataSetの種別です. 種別 : {0} */
     RDB_ERR_0026("com.epion_t3.rdb.err.0026"),
 
     /** Queryが指定されていません. */

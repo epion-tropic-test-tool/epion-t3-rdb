@@ -330,7 +330,7 @@ commands:
         type: string
         summary:
           - lang: ja_JP
-            contents: "テーブル設定ファイルのパスを指定します。# (4)"
+            contents: "テーブル設定ファイルのパスを指定します。 # (4)"
         description:
           - lang: ja_JP
             contents: |

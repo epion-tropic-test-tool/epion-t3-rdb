@@ -68,7 +68,7 @@ commands :
   rdbConnectConfigRef : RDBに対する接続先定義の参照ID # (1)
   dataSetType : (xml|flatXml|excel) # (2)
   tables : エクスポート対象のテーブルを定義 # (3)
-  tablesConfigPath : テーブル設定ファイルのパスを指定します。# (4)
+  tablesConfigPath : テーブル設定ファイルのパスを指定します。 # (4)
 
 ```
 

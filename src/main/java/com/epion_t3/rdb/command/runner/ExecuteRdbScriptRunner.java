@@ -20,6 +20,10 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * RDBに対してスクリプト（SQL）実行処理．
@@ -60,7 +64,7 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
         }
 
         // スクリプトの内容を読み込み
-        var scriptContents = new String(Files.readAllBytes(scriptPath), Charset.forName("UTF-8"));
+        var scriptContents = Files.readString(scriptPath);
 
         // スクリプトを読み込んだ結果空出会った場合はエラー（想定外の挙動である可能性が高いため）
         if (StringUtils.isEmpty(scriptContents)) {
@@ -73,16 +77,16 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
         scriptContents = bind(scriptContents);
 
         // スクリプトを分割
-        String[] queries = scriptContents.split(";");
+        var queries = scriptContents.split("(?m);$");
 
         // データソースを取得
         DataSource dataSource = RdbAccessUtils.getInstance().getDataSource(rdbConnectionConfiguration);
 
-        try (Connection conn = dataSource.getConnection()) {
-            for (String q : queries) {
-                if (StringUtils.isNotEmpty(q)) {
+        try (var conn = dataSource.getConnection()) {
+            for (var q : queries) {
+                if (StringUtils.isNotEmpty(q) && StringUtils.isNotEmpty(q.trim())) {
                     try (PreparedStatement statement = conn.prepareStatement(q)) {
-                        log.trace("execute query -> {}", q);
+                        log.trace(collectLoggingMarker(), "execute query -> {}", q);
                         statement.execute();
                     }
                 }

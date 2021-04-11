@@ -3,6 +3,8 @@ package com.epion_t3.rdb.command.runner;
 
 import com.epion_t3.core.command.bean.CommandResult;
 import com.epion_t3.core.command.runner.impl.AbstractCommandRunner;
+import com.epion_t3.core.common.util.JsonUtils;
+import com.epion_t3.core.common.util.YamlUtils;
 import com.epion_t3.core.exception.SystemException;
 import com.epion_t3.core.common.type.AssertStatus;
 import com.epion_t3.rdb.bean.*;
@@ -24,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,8 +52,26 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
         // 結果値DataSet
         IDataSet actual = getActualDataSet(command, logger);
 
+        var tables = (List<AssertTargetTable>) null;
+        if (command.getTables() != null) {
+            tables = command.getTables();
+        } else if (StringUtils.isNotEmpty(command.getTablesConfigPath())) {
+            var tableConfigPath = Paths.get(getScenarioDirectory(), command.getTablesConfigPath());
+            if (!Files.exists(tableConfigPath)) {
+                throw new SystemException(RdbMessages.RDB_ERR_0028, tableConfigPath.toString());
+            }
+            if (StringUtils.endsWith(command.getTablesConfigPath(), "yaml")
+                    || StringUtils.endsWith(command.getTablesConfigPath(), "yml")) {
+                tables = YamlUtils.getInstance().unmarshal(tableConfigPath);
+            } else if (StringUtils.endsWith(command.getTablesConfigPath(), "json")) {
+                tables = JsonUtils.getInstance().unmarshal(tableConfigPath);
+            }
+        } else {
+            throw new SystemException(RdbMessages.RDB_ERR_0027, command.getTablesConfigPath());
+        }
+
         // アサート対象のテーブル情報をループ
-        for (AssertTargetTable assertTargetTable : command.getTables()) {
+        for (AssertTargetTable assertTargetTable : tables) {
 
             // 結果オブジェクト生成
             AssertResultTable assertResultTable = new AssertResultTable();

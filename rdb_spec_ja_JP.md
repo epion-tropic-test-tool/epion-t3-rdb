@@ -188,6 +188,7 @@ commands :
   actualFlowId : 結果値を取得したFlowのFlowIDを指定 # (3)
   actualDataSetType : (xml|excel) # (4)
   tables : アサートの詳細設定
+  tablesConfigPath : アサートテーブル設定ファイルのパスを指定します。
 
 ```
 
@@ -195,6 +196,7 @@ commands :
 1. DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。
 1. 結果値を取得したFlowIDを指定。
 1. DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。
+1. アサートテーブル設定ファイルは、tablesに記載する内容を YAML or JSON の形式指定します。&#10;例：[&#10;  {&#10;    &quot;table&quot; : &quot;テーブル名&quot;,&#10;    &quot;ignoreColumns&quot; : [&#10;      &quot;カラム名1&quot;,&#10;      &quot;カラム名2&quot;&#10;    ]&#10;  }&#10;]&#10;
 ------
 
 ### StoreRdbQueryResultSingle
@@ -300,7 +302,9 @@ commands :
 |com.epion_t3.rdb.err.0007|DataSetの種別が解決できません.種別：{0}|
 |com.epion_t3.rdb.err.0008|CSVによるDataSetには現状対応していません.|
 |com.epion_t3.rdb.err.0005|DataSetのパスが指定されていません.|
+|com.epion_t3.rdb.err.0027|アサートテーブルの設定ファイルは「yaml」「yml」「json」のいずれかで指定して下さい. アサートテーブル設定ファイル : {0}|
 |com.epion_t3.rdb.err.0006|DataSetのパスが存在しません.パス：{0}|
+|com.epion_t3.rdb.err.0028|アサートテーブルの設定ファイルが見つかりません. アサートテーブル設定ファイル : {0}|
 |com.epion_t3.rdb.err.0003|Scriptのパスが指定されていません.|
 |com.epion_t3.rdb.err.0025|テーブルの設定ファイルが見つかりません. テーブル設定ファイル : {0}|
 |com.epion_t3.rdb.err.0004|Scriptのパスが存在しません.パス：{0}|

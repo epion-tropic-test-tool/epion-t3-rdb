@@ -49,8 +49,14 @@ public enum RdbMessages implements Messages {
     /** DataSetのパスが指定されていません. */
     RDB_ERR_0005("com.epion_t3.rdb.err.0005"),
 
+    /** アサートテーブルの設定ファイルは「yaml」「yml」「json」のいずれかで指定して下さい. アサートテーブル設定ファイル : {0} */
+    RDB_ERR_0027("com.epion_t3.rdb.err.0027"),
+
     /** DataSetのパスが存在しません.パス：{0} */
     RDB_ERR_0006("com.epion_t3.rdb.err.0006"),
+
+    /** アサートテーブルの設定ファイルが見つかりません. アサートテーブル設定ファイル : {0} */
+    RDB_ERR_0028("com.epion_t3.rdb.err.0028"),
 
     /** Scriptのパスが指定されていません. */
     RDB_ERR_0003("com.epion_t3.rdb.err.0003"),

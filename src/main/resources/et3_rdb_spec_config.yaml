@@ -577,7 +577,7 @@ commands:
             contents: "DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。"
       - order: 9
         name: tables
-        required: true
+        required: false
         type: array
         summary:
           - lang: ja_JP
@@ -597,6 +597,26 @@ commands:
             summary:
               - lang: ja_JP
                 contents: "対象のテーブル内でアサートの対象外としたいカラムの指定を行います。"
+      - order: 10
+        name: tablesConfigPath
+        required: false
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "アサートテーブル設定ファイルのパスを指定します。"
+        description:
+          - lang: ja_JP
+            contents: |
+              アサートテーブル設定ファイルは、tablesに記載する内容を YAML or JSON の形式指定します。
+              例：[
+                {
+                  "table" : "テーブル名",
+                  "ignoreColumns" : [
+                    "カラム名1",
+                    "カラム名2"
+                  ]
+                }
+              ]
   ##########################
   # StoreRdbQueryResult
   ##########################
@@ -867,3 +887,11 @@ messages:
     message:
       - lang: ja_JP
         contents: "未対応のDataSetの種別です. 種別 : {0}"
+  - id: com.epion_t3.rdb.err.0027
+    message:
+      - lang: ja_JP
+        contents: "アサートテーブルの設定ファイルは「yaml」「yml」「json」のいずれかで指定して下さい. アサートテーブル設定ファイル : {0}"
+  - id: com.epion_t3.rdb.err.0028
+    message:
+      - lang: ja_JP
+        contents: "アサートテーブルの設定ファイルが見つかりません. アサートテーブル設定ファイル : {0}"

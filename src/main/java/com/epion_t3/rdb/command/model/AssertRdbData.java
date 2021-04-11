@@ -46,4 +46,9 @@ public class AssertRdbData extends Command {
      */
     private List<AssertTargetTable> tables;
 
+    /**
+     * テーブル指定ファイルパス.
+     */
+    private String tablesConfigPath;
+
 }

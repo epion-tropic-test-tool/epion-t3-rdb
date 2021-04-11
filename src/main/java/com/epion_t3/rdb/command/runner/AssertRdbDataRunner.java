@@ -14,6 +14,7 @@ import com.epion_t3.rdb.type.DataSetType;
 import com.epion_t3.rdb.util.DataSetUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.Column;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
@@ -25,7 +26,9 @@ import org.slf4j.Logger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,13 +68,30 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
                 tables = YamlUtils.getInstance().unmarshal(tableConfigPath);
             } else if (StringUtils.endsWith(command.getTablesConfigPath(), "json")) {
                 tables = JsonUtils.getInstance().unmarshal(tableConfigPath);
+            } else {
+                throw new SystemException(RdbMessages.RDB_ERR_0030, command.getTablesConfigPath());
             }
         } else {
             throw new SystemException(RdbMessages.RDB_ERR_0027, command.getTablesConfigPath());
         }
 
         // アサート対象のテーブル情報をループ
-        for (AssertTargetTable assertTargetTable : tables) {
+        for (Object t : tables) {
+
+            var assertTargetTable = (AssertTargetTable) null;
+
+            if (AssertTargetTable.class.isAssignableFrom(t.getClass())) {
+                assertTargetTable = (AssertTargetTable) t;
+            } else if (LinkedHashMap.class.isAssignableFrom(t.getClass())) {
+                var castedMap = (LinkedHashMap<String, Object>) t;
+                assertTargetTable = new AssertTargetTable();
+                assertTargetTable.setTable((String) castedMap.get("table"));
+                assertTargetTable.setIgnoreColumns((List<String>) castedMap.get("ignoreColumns"));
+            }
+
+            if (assertTargetTable.getIgnoreColumns() == null) {
+                assertTargetTable.setIgnoreColumns(new ArrayList<>());
+            }
 
             // 結果オブジェクト生成
             AssertResultTable assertResultTable = new AssertResultTable();

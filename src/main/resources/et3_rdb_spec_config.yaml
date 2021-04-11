@@ -895,3 +895,11 @@ messages:
     message:
       - lang: ja_JP
         contents: "アサートテーブルの設定ファイルが見つかりません. アサートテーブル設定ファイル : {0}"
+  - id: com.epion_t3.rdb.err.0029
+    message:
+      - lang: ja_JP
+        contents: "テーブルの設定ファイルを正しく読み込めませんでした. テーブル設定ファイル : {0}"
+  - id: com.epion_t3.rdb.err.0030
+    message:
+      - lang: ja_JP
+        contents: "アサートテーブルの設定ファイルを正しく読み込めませんでした. アサートテーブル設定ファイル : {0}"

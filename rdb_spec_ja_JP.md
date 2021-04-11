@@ -299,7 +299,9 @@ commands :
 |com.epion_t3.rdb.err.0013|RDBへの接続先定義のRDB種別は必須です.|
 |com.epion_t3.rdb.err.0010|DataSetのインポートに失敗しました.|
 |com.epion_t3.rdb.err.0011|RDBアクセスに失敗したため、DataSetのエクスポートに失敗しました.|
+|com.epion_t3.rdb.err.0030|アサートテーブルの設定ファイルを正しく読み込めませんでした. アサートテーブル設定ファイル : {0}|
 |com.epion_t3.rdb.err.0007|DataSetの種別が解決できません.種別：{0}|
+|com.epion_t3.rdb.err.0029|テーブルの設定ファイルを正しく読み込めませんでした. テーブル設定ファイル : {0}|
 |com.epion_t3.rdb.err.0008|CSVによるDataSetには現状対応していません.|
 |com.epion_t3.rdb.err.0005|DataSetのパスが指定されていません.|
 |com.epion_t3.rdb.err.0027|アサートテーブルの設定ファイルは「yaml」「yml」「json」のいずれかで指定して下さい. アサートテーブル設定ファイル : {0}|

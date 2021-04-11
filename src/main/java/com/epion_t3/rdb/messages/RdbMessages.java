@@ -40,8 +40,14 @@ public enum RdbMessages implements Messages {
     /** RDBアクセスに失敗したため、DataSetのエクスポートに失敗しました. */
     RDB_ERR_0011("com.epion_t3.rdb.err.0011"),
 
+    /** アサートテーブルの設定ファイルを正しく読み込めませんでした. アサートテーブル設定ファイル : {0} */
+    RDB_ERR_0030("com.epion_t3.rdb.err.0030"),
+
     /** DataSetの種別が解決できません.種別：{0} */
     RDB_ERR_0007("com.epion_t3.rdb.err.0007"),
+
+    /** テーブルの設定ファイルを正しく読み込めませんでした. テーブル設定ファイル : {0} */
+    RDB_ERR_0029("com.epion_t3.rdb.err.0029"),
 
     /** CSVによるDataSetには現状対応していません. */
     RDB_ERR_0008("com.epion_t3.rdb.err.0008"),

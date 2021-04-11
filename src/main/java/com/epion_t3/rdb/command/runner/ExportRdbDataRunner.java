@@ -30,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -70,6 +71,8 @@ public class ExportRdbDataRunner extends AbstractCommandRunner<ExportRdbData> {
                 tables = YamlUtils.getInstance().unmarshal(tableConfigPath);
             } else if (StringUtils.endsWith(command.getTablesConfigPath(), "json")) {
                 tables = JsonUtils.getInstance().unmarshal(tableConfigPath);
+            } else {
+                throw new SystemException(RdbMessages.RDB_ERR_0029, command.getTablesConfigPath());
             }
         } else {
             throw new SystemException(RdbMessages.RDB_ERR_0024, command.getTablesConfigPath());
@@ -88,8 +91,15 @@ public class ExportRdbDataRunner extends AbstractCommandRunner<ExportRdbData> {
             iDataSet = new QueryDataSet(conn);
 
             // 対象テーブルを登録
-            for (TargetTable t : command.getTables()) {
-                ((QueryDataSet) iDataSet).addTable(t.getTable(), t.getQuery());
+            for (Object t : tables) {
+                if (TargetTable.class.isAssignableFrom(t.getClass())) {
+                    var castedTargetTable = (TargetTable) t;
+                    ((QueryDataSet) iDataSet).addTable(castedTargetTable.getTable(), castedTargetTable.getQuery());
+                } else if (LinkedHashMap.class.isAssignableFrom(t.getClass())) {
+                    var castedMap = (LinkedHashMap<String, Object>) t;
+                    ((QueryDataSet) iDataSet).addTable((String) castedMap.get("table"),
+                            (String) castedMap.get("query"));
+                }
             }
 
             // データセットの種類によって出力処理を行う

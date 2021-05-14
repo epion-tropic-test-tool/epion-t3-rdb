@@ -300,6 +300,16 @@ commands:
           - lang: ja_JP
             contents: "DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。"
       - order: 7
+        name: encoding
+        required: false
+        type: string
+        summary:
+          - lang: ja_JP
+            contents: "出力時のエンコーディングを指定します。"
+        description:
+          - lang: ja_JP
+            contents: "DataSetの出力時のエンコーディングを明示的に指定します。省略した場合システムデフォルトが採用されます。"
+      - order: 8
         name: tables
         required: false
         type: array
@@ -324,7 +334,7 @@ commands:
             summary:
               - lang: ja_JP
                 contents: "対象のテーブルからデータを抽出するためのクエリー（SQL）を指定"
-      - order: 8
+      - order: 9
         name: tablesConfigPath
         required: false
         type: string
@@ -903,3 +913,7 @@ messages:
     message:
       - lang: ja_JP
         contents: "アサートテーブルの設定ファイルを正しく読み込めませんでした. アサートテーブル設定ファイル : {0}"
+  - id: com.epion_t3.rdb.err.0031
+    message:
+      - lang: ja_JP
+        contents: "指定されたエンコーディングは不正です. エンコーディング : {0}"

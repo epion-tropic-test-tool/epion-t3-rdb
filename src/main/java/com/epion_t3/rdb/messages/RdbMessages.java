@@ -43,6 +43,9 @@ public enum RdbMessages implements Messages {
     /** アサートテーブルの設定ファイルを正しく読み込めませんでした. アサートテーブル設定ファイル : {0} */
     RDB_ERR_0030("com.epion_t3.rdb.err.0030"),
 
+    /** 指定されたエンコーディングは不正です. エンコーディング : {0} */
+    RDB_ERR_0031("com.epion_t3.rdb.err.0031"),
+
     /** DataSetの種別が解決できません.種別：{0} */
     RDB_ERR_0007("com.epion_t3.rdb.err.0007"),
 

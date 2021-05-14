@@ -67,6 +67,7 @@ commands :
   description : コマンドの詳細（任意）
   rdbConnectConfigRef : RDBに対する接続先定義の参照ID # (1)
   dataSetType : (xml|flatXml|excel) # (2)
+  encoding : 出力時のエンコーディングを指定します。
   tables : エクスポート対象のテーブルを定義 # (3)
   tablesConfigPath : テーブル設定ファイルのパスを指定します。 # (4)
 
@@ -74,6 +75,7 @@ commands :
 
 1. RDBへの接続先の設定を行っている &#96;Configuration&#96; の参照IDを指定します。
 1. DataSetの種類を指定します。DataSetとは、RDBのデータ構造を表したもので、DataSetには、CSV、XML、Excelの形式が選べます。本コマンドが利用するDataSetとはすべてDBUnitのDataSetを指します。現状では、CSVには対応ができておりません。
+1. DataSetの出力時のエンコーディングを明示的に指定します。省略した場合システムデフォルトが採用されます。
 1. エクスポートを行う対象のテーブルについて細かく指定が行えます。
 1. テーブル設定ファイルは、YAML or JSON で指定します。&#10;例：[&#10;  {&#10;    &quot;table&quot; : &quot;テーブル名&quot;,&#10;    &quot;query&quot; : &quot;クエリーを記載&quot;&#10;  }&#10;]&#10;
 ------
@@ -300,6 +302,7 @@ commands :
 |com.epion_t3.rdb.err.0010|DataSetのインポートに失敗しました.|
 |com.epion_t3.rdb.err.0011|RDBアクセスに失敗したため、DataSetのエクスポートに失敗しました.|
 |com.epion_t3.rdb.err.0030|アサートテーブルの設定ファイルを正しく読み込めませんでした. アサートテーブル設定ファイル : {0}|
+|com.epion_t3.rdb.err.0031|指定されたエンコーディングは不正です. エンコーディング : {0}|
 |com.epion_t3.rdb.err.0007|DataSetの種別が解決できません.種別：{0}|
 |com.epion_t3.rdb.err.0029|テーブルの設定ファイルを正しく読み込めませんでした. テーブル設定ファイル : {0}|
 |com.epion_t3.rdb.err.0008|CSVによるDataSetには現状対応していません.|

@@ -12,18 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
-import javax.sql.DataSource;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * RDBに対してスクリプト（SQL）実行処理．
@@ -80,12 +71,13 @@ public class ExecuteRdbScriptRunner extends AbstractCommandRunner<ExecuteRdbScri
         var queries = scriptContents.split("(?m);$");
 
         // データソースを取得
-        DataSource dataSource = RdbAccessUtils.getInstance().getDataSource(rdbConnectionConfiguration);
+        var dataSource = RdbAccessUtils.getInstance().getDataSource(rdbConnectionConfiguration);
 
         try (var conn = dataSource.getConnection()) {
             for (var q : queries) {
                 if (StringUtils.isNotEmpty(q) && StringUtils.isNotEmpty(q.trim())) {
-                    try (PreparedStatement statement = conn.prepareStatement(q)) {
+                    q = bind(q);
+                    try (var statement = conn.prepareStatement(q)) {
                         log.trace(collectLoggingMarker(), "execute query -> {}", q);
                         statement.execute();
                     }

@@ -3,18 +3,22 @@ package com.epion_t3.rdb.command.runner;
 
 import com.epion_t3.core.command.bean.CommandResult;
 import com.epion_t3.core.command.runner.impl.AbstractCommandRunner;
+import com.epion_t3.core.common.type.AssertStatus;
 import com.epion_t3.core.common.util.JsonUtils;
 import com.epion_t3.core.common.util.YamlUtils;
 import com.epion_t3.core.exception.SystemException;
-import com.epion_t3.core.common.type.AssertStatus;
-import com.epion_t3.rdb.bean.*;
+import com.epion_t3.rdb.bean.AssertRdbDataResult;
+import com.epion_t3.rdb.bean.AssertResultColumnDataType;
+import com.epion_t3.rdb.bean.AssertResultColumnValue;
+import com.epion_t3.rdb.bean.AssertResultRow;
+import com.epion_t3.rdb.bean.AssertResultTable;
+import com.epion_t3.rdb.bean.AssertTargetTable;
 import com.epion_t3.rdb.command.model.AssertRdbData;
 import com.epion_t3.rdb.messages.RdbMessages;
 import com.epion_t3.rdb.type.DataSetType;
 import com.epion_t3.rdb.util.DataSetUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.Column;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
@@ -46,14 +50,14 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
     @Override
     public CommandResult execute(AssertRdbData command, Logger logger) throws Exception {
 
-        AssertRdbDataResult result = new AssertRdbDataResult();
+        var result = new AssertRdbDataResult();
         result.setAssertStatus(AssertStatus.OK);
 
         // 期待値DataSet
-        IDataSet expected = getExpectedDataSet(command, logger);
+        var expected = getExpectedDataSet(command, logger);
 
         // 結果値DataSet
-        IDataSet actual = getActualDataSet(command, logger);
+        var actual = getActualDataSet(command, logger);
 
         var tables = (List<AssertTargetTable>) null;
         if (command.getTables() != null) {
@@ -94,21 +98,21 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
             }
 
             // 結果オブジェクト生成
-            AssertResultTable assertResultTable = new AssertResultTable();
+            var assertResultTable = new AssertResultTable();
             result.getTables().add(assertResultTable);
             assertResultTable.setName(assertTargetTable.getTable());
 
             logger.debug("RdbDataAssert -> Table: {}", assertTargetTable.getTable());
 
             // 期待値Table
-            ITable expectedTable = expected.getTable(assertTargetTable.getTable());
+            var expectedTable = expected.getTable(assertTargetTable.getTable());
             // 期待値TableMetaData
-            ITableMetaData expectedMetaData = expectedTable.getTableMetaData();
+            var expectedMetaData = expectedTable.getTableMetaData();
 
             // 結果値Table
-            ITable actualTable = actual.getTable(assertTargetTable.getTable());
+            var actualTable = actual.getTable(assertTargetTable.getTable());
             // 結果値TableMetaData
-            ITableMetaData actualMetaData = actualTable.getTableMetaData();
+            var actualMetaData = actualTable.getTableMetaData();
 
             // ----------------------------------------
             // カラム数アサート
@@ -127,7 +131,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
             // ----------------------------------------
             // 型アサート
             // ----------------------------------------
-            Map<String, DataType> dataTypeMap = new HashMap<>();
+            var dataTypeMap = new HashMap<String, DataType>();
             for (Column expectedCol : expectedMetaData.getColumns()) {
 
                 // 期待値カラムのインデックスを取得
@@ -220,12 +224,12 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
             for (int rowCount = 0; (rowCount < expectedTable.getRowCount()
                     && rowCount < actualTable.getRowCount()); rowCount++) {
 
-                AssertResultRow assertResultRow = new AssertResultRow();
+                var assertResultRow = new AssertResultRow();
                 assertResultTable.getRows().add(assertResultRow);
 
-                for (Column column : expectedMetaData.getColumns()) {
+                for (var column : expectedMetaData.getColumns()) {
 
-                    AssertResultColumnValue assertColumn = new AssertResultColumnValue();
+                    var assertColumn = new AssertResultColumnValue();
                     assertColumn.setName(column.getColumnName());
                     assertColumn.setIgnore(assertTargetTable.getIgnoreColumns().contains(column.getColumnName()));
                     assertResultRow.getColumns().add(assertColumn);
@@ -239,7 +243,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
                     assertColumn.setActual(actualValue);
 
                     if (dataTypeMap.containsKey(column.getColumnName())) {
-                        DataType dataType = dataTypeMap.get(column.getColumnName());
+                        var dataType = dataTypeMap.get(column.getColumnName());
 
                         if (dataType.compare(expectedValue, actualValue) == 0) {
                             // OK
@@ -294,7 +298,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
     private IDataSet getExpectedDataSet(AssertRdbData command, Logger logger) {
 
         // DataSetの配置パスを取得
-        String dataSet = command.getExpectedDataSetPath();
+        var dataSet = command.getExpectedDataSetPath();
 
         // DataSetの配置パスは必須
         if (StringUtils.isEmpty(dataSet)) {
@@ -302,7 +306,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
         }
 
         // DataSetの配置パスを解決
-        Path dataSetPath = Paths.get(getCommandBelongScenarioDirectory(), dataSet);
+        var dataSetPath = Paths.get(getCommandBelongScenarioDirectory(), dataSet);
 
         // DataSetの配置パスが存在しなかった場合はエラー
         if (Files.notExists(dataSetPath)) {
@@ -310,7 +314,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
         }
 
         // データセット種別
-        DataSetType dataSetType = DataSetType.valueOfByValue(command.getExpectedDataSetType());
+        var dataSetType = DataSetType.valueOfByValue(command.getExpectedDataSetType());
 
         // データセット種別が解決できなかった場合はエラー
         if (dataSetType == null) {
@@ -340,7 +344,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
         }
 
         // 結果値DataSetの配置パスを解決
-        Path dataSetPath = referFileEvidence(flowId);
+        var dataSetPath = referFileEvidence(flowId);
 
         // DataSetの配置パスが存在しなかった場合はエラー
         if (Files.notExists(dataSetPath)) {
@@ -348,7 +352,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
         }
 
         // データセット種別
-        DataSetType dataSetType = DataSetType.valueOfByValue(command.getActualDataSetType());
+        var dataSetType = DataSetType.valueOfByValue(command.getActualDataSetType());
 
         // データセット種別が解決できなかった場合はエラー
         if (dataSetType == null) {

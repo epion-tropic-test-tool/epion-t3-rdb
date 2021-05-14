@@ -305,7 +305,7 @@ commands:
         type: string
         summary:
           - lang: ja_JP
-            contents: "出力時のエンコーディングを指定します。"
+            contents: "出力時のエンコーディングを指定します。 # (3)"
         description:
           - lang: ja_JP
             contents: "DataSetの出力時のエンコーディングを明示的に指定します。省略した場合システムデフォルトが採用されます。"
@@ -315,7 +315,7 @@ commands:
         type: array
         summary:
           - lang: ja_JP
-            contents: "エクスポート対象のテーブルを定義 # (3)"
+            contents: "エクスポート対象のテーブルを定義 # (4)"
         description:
           - lang: ja_JP
             contents: "エクスポートを行う対象のテーブルについて細かく指定が行えます。"
@@ -340,7 +340,7 @@ commands:
         type: string
         summary:
           - lang: ja_JP
-            contents: "テーブル設定ファイルのパスを指定します。 # (4)"
+            contents: "テーブル設定ファイルのパスを指定します。 # (5)"
         description:
           - lang: ja_JP
             contents: |

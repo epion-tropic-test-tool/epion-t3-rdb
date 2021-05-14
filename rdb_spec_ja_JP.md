@@ -67,9 +67,9 @@ commands :
   description : コマンドの詳細（任意）
   rdbConnectConfigRef : RDBに対する接続先定義の参照ID # (1)
   dataSetType : (xml|flatXml|excel) # (2)
-  encoding : 出力時のエンコーディングを指定します。
-  tables : エクスポート対象のテーブルを定義 # (3)
-  tablesConfigPath : テーブル設定ファイルのパスを指定します。 # (4)
+  encoding : 出力時のエンコーディングを指定します。 # (3)
+  tables : エクスポート対象のテーブルを定義 # (4)
+  tablesConfigPath : テーブル設定ファイルのパスを指定します。 # (5)
 
 ```
 

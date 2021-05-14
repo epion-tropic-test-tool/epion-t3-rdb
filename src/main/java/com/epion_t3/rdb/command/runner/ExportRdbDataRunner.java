@@ -24,8 +24,7 @@ import org.dbunit.dataset.xml.XmlDataSetWriter;
 import org.slf4j.Logger;
 
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -102,6 +101,13 @@ public class ExportRdbDataRunner extends AbstractCommandRunner<ExportRdbData> {
                 }
             }
 
+            var encoding = StringUtils.isEmpty(command.getEncoding()) ? System.getProperty("file.encoding")
+                    : command.getEncoding();
+            // 文字コードチェック
+            if (Charset.isSupported(encoding)) {
+                throw new SystemException(RdbMessages.RDB_ERR_0031, encoding);
+            }
+
             // データセットの種類によって出力処理を行う
             switch (dataSetType) {
             case CSV:
@@ -111,25 +117,24 @@ public class ExportRdbDataRunner extends AbstractCommandRunner<ExportRdbData> {
                 throw new SystemException(RdbMessages.RDB_ERR_0008);
             case XML:
                 Path xmlPath = getEvidencePath("export.xml");
-                try (FileWriter fileWriter = new FileWriter(xmlPath.toFile());) {
-                    XmlDataSetWriter writer2 = new XmlDataSetWriter(fileWriter);
-                    writer2.setPrettyPrint(true);
-                    writer2.write(iDataSet);
+                try (var os = new FileOutputStream(xmlPath.toFile());) {
+                    var writer = new XmlDataSetWriter(os, encoding);
+                    writer.write(iDataSet);
                 }
                 registrationFileEvidence(xmlPath);
                 break;
             case FLAT_XML:
                 Path flatXmlPath = getEvidencePath("export_flat.xml");
-                try (OutputStream os = new FileOutputStream(flatXmlPath.toFile());) {
-                    FlatXmlWriter writer = new FlatXmlWriter(os);
+                try (var os = new FileOutputStream(flatXmlPath.toFile());) {
+                    var writer = new FlatXmlWriter(os, encoding);
                     writer.write(iDataSet);
                 }
                 registrationFileEvidence(flatXmlPath);
                 break;
             case EXCEL:
                 Path xlsxPath = getEvidencePath("export.xlsx");
-                try (OutputStream os = new FileOutputStream(xlsxPath.toFile())) {
-                    XlsxDataSetWriter writer = new XlsxDataSetWriter();
+                try (var os = new FileOutputStream(xlsxPath.toFile())) {
+                    var writer = new XlsxDataSetWriter();
                     writer.write(iDataSet, os);
                 }
                 registrationFileEvidence(xlsxPath);

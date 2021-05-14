@@ -34,6 +34,11 @@ public class ExportRdbData extends Command {
     private String dataSetType = "excel";
 
     /**
+     * エンコーディング.
+     */
+    private String encoding;
+
+    /**
      * テーブル指定.
      */
     private List<TargetTable> tables;

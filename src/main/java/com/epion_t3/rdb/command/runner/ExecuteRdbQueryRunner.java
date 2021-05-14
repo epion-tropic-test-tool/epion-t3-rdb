@@ -12,9 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -40,7 +37,7 @@ public class ExecuteRdbQueryRunner extends AbstractCommandRunner<ExecuteRdbQuery
         RdbConnectionConfiguration rdbConnectionConfiguration = referConfiguration(command.getRdbConnectConfigRef());
 
         // クエリー文字列を取得
-        String query = command.getValue();
+        var query = command.getValue();
 
         // クエリーは必須
         if (StringUtils.isEmpty(query)) {
@@ -48,15 +45,17 @@ public class ExecuteRdbQueryRunner extends AbstractCommandRunner<ExecuteRdbQuery
         }
 
         // 複数行の場合は、セミコロンで区切られている
-        String[] queries = query.split(";");
+        var queries = query.split(";");
 
         // データソースを取得
-        DataSource dataSource = RdbAccessUtils.getInstance().getDataSource(rdbConnectionConfiguration);
+        var dataSource = RdbAccessUtils.getInstance().getDataSource(rdbConnectionConfiguration);
 
-        try (Connection conn = dataSource.getConnection()) {
-            for (String q : queries) {
+        try (var conn = dataSource.getConnection()) {
+            for (var q : queries) {
+
                 if (StringUtils.isNotEmpty(q)) {
-                    try (PreparedStatement statement = conn.prepareStatement(q)) {
+                    q = bind(q);
+                    try (var statement = conn.prepareStatement(q)) {
                         log.trace("execute query -> {}", q);
                         statement.execute();
                     }

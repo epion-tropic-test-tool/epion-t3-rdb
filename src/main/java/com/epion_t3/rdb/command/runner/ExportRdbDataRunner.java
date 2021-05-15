@@ -104,7 +104,7 @@ public class ExportRdbDataRunner extends AbstractCommandRunner<ExportRdbData> {
             var encoding = StringUtils.isEmpty(command.getEncoding()) ? System.getProperty("file.encoding")
                     : command.getEncoding();
             // 文字コードチェック
-            if (Charset.isSupported(encoding)) {
+            if (!Charset.isSupported(encoding)) {
                 throw new SystemException(RdbMessages.RDB_ERR_0031, encoding);
             }
 

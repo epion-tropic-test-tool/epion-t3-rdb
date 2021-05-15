@@ -78,6 +78,9 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
         // アサート対象のテーブル情報をループ
         for (Object t : tables) {
 
+            // 対象テーブルのアサートが失敗しているかどうか
+            var currentAssertFail = false;
+
             var assertTargetTable = (AssertTargetTable) null;
 
             if (AssertTargetTable.class.isAssignableFrom(t.getClass())) {
@@ -140,6 +143,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
 
                 if (expectedColIndex != actualColIndex) {
                     // カラム順序不一致
+                    currentAssertFail = true;
                     assertResultTable.setColumnIndexAssert(AssertStatus.NG);
                     result.setAssertStatus(AssertStatus.NG);
                     log.debug("!NG! table:{}, column:{}, expectedIndex:{}, actualIndex:{}",
@@ -176,6 +180,7 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
                                 .getClass()
                                 .isAssignableFrom(actualCol.getDataType().getClass())) {
                             // 型の不一致
+                            currentAssertFail = true;
                             dataType.setStatus(AssertStatus.NG);
                             result.setAssertStatus(AssertStatus.NG);
                             log.debug("!NG! table:{}, column:{}, expectedType:{}, actualType:{}",
@@ -194,9 +199,10 @@ public class AssertRdbDataRunner extends AbstractCommandRunner<AssertRdbData> {
                 assertResultTable.setColumnDataTypeAssert(AssertStatus.OK);
             }
 
-            // この時点でアサーションが失敗していれば終了する
-            if (result.getAssertStatus() == AssertStatus.NG) {
-                return result;
+            // この時点でアサーションが失敗していれば、対象テーブルのアサートは中断する
+            // 他テーブルのアサートは実施する
+            if (currentAssertFail) {
+                continue;
             }
 
             // ----------------------------------------

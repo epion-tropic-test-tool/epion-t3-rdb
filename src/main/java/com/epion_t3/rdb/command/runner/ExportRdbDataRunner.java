@@ -93,11 +93,12 @@ public class ExportRdbDataRunner extends AbstractCommandRunner<ExportRdbData> {
             for (Object t : tables) {
                 if (TargetTable.class.isAssignableFrom(t.getClass())) {
                     var castedTargetTable = (TargetTable) t;
-                    ((QueryDataSet) iDataSet).addTable(castedTargetTable.getTable(), castedTargetTable.getQuery());
+                    ((QueryDataSet) iDataSet).addTable(castedTargetTable.getTable(),
+                            bind(castedTargetTable.getQuery()));
                 } else if (LinkedHashMap.class.isAssignableFrom(t.getClass())) {
                     var castedMap = (LinkedHashMap<String, Object>) t;
                     ((QueryDataSet) iDataSet).addTable((String) castedMap.get("table"),
-                            (String) castedMap.get("query"));
+                            bind((String) castedMap.get("query")));
                 }
             }
 
